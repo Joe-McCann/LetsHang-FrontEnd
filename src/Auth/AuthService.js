@@ -20,7 +20,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'iambillmccann.auth0.com',
     clientID: 'xAcEHZHv6udK6HgA7KZeSc2CLZND660o',
-    redirectUri: 'http://localhost:8080/callback',
+    redirectUri: 'http://localhost:9080/callback',
     audience: 'https://iambillmccann.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid'

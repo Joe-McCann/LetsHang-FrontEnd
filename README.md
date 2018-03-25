@@ -37,4 +37,4 @@ To run the app in your development environment, simply use the command:
 npm run dev
 ```
 
-The "npm run dev" command will open your default browser to the URL http://localhost:8080 which should display the LetsHang landing page that requests you to sign-in.
+The "npm run dev" command will open your default browser to the URL http://localhost:9080 which should display the LetsHang landing page that requests you to sign-in.
