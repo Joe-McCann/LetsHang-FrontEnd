@@ -8,6 +8,7 @@ import Vuex from 'vuex'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(Vuetify, {
   theme: {
@@ -18,6 +19,13 @@ Vue.use(Vuetify, {
     info: colors.blueGrey.lighten1,
     success: colors.teal.lighten2,
     warning: colors.blueGrey.darken1
+  }
+})
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDE_obiduTrYqwMjhxrf25Wm09hFWqF_GE',
+    libraries: 'places,drawing,visualization'
   }
 })
 

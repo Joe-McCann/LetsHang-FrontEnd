@@ -25,7 +25,7 @@
                     </router-link>
                 </v-stepper-content>
                 <v-stepper-content step="3">
-                    <v-card color="info" class="mb-5" height="200px"></v-card>
+                    <googleMap></googleMap>
                     <router-link to="./home" class="noUnderline">
                         <v-btn color="primary" v-on:click.native="handleSave">Save</v-btn>
                     </router-link>
@@ -42,13 +42,15 @@
 <script>
   import EventDescription from '@/components/EventDescription'
   import InvitedList from '@/components/InvitedList'
+  import GoogleMap from '@/components/GoogleMap'
   import store from '@/store'
 
   export default {
     name: 'eventdetailhorizontal',
     components: {
       'eventDescription': EventDescription,
-      'invitedList': InvitedList
+      'invitedList': InvitedList,
+      'googleMap': GoogleMap
     },
     props: ['auth', 'authenticated'],
     data () {

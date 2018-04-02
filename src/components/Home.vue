@@ -76,7 +76,8 @@
     computed: mapState({
       myProfile: state => state.myProfile,
       myEvents: state => state.myEvents.events,
-      eventCount: function () { return store.getters.numberOfEvents }
+      eventCount: function () { return store.getters.numberOfEvents },
+      userAuthId: function () { return localStorage.getItem('sub') }
     }),
     data: function () {
       this.auth.handleAuthentication()

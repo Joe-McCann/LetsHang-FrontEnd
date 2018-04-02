@@ -52,6 +52,7 @@ export default class AuthService {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    localStorage.setItem('sub', authResult.idTokenPayload.sub) // This will be used as the user secret id (temporarily)
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 
