@@ -20,7 +20,7 @@ export default new Vuex.Store({
   },
   mutations: {
     // functions that update the logged in user's profile
-    getMyProfile (state) { state.myProfile = GetProfile() },
+    getMyProfile (state, userId) { state.myProfile = GetProfile(userId) },
     removeProfile (state) { state.myProfile = new People() },
 
     // functions that update the event

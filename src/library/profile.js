@@ -7,7 +7,7 @@
 //
 import People from '@/library/people'
 
-export default function GetProfile () {
+export default function GetProfile (userId) {
   var me = new People()
   me.setFirstName('Bill')
   me.setLastName('McCann')

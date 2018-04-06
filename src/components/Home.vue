@@ -74,19 +74,18 @@
     name: 'home',
     props: ['auth', 'authenticated'],
     computed: mapState({
-      myProfile: state => state.myProfile,
       myEvents: state => state.myEvents.events,
-      eventCount: function () { return store.getters.numberOfEvents },
-      userAuthId: function () { return localStorage.getItem('sub') }
+      // eventCount: function () { return store.getters.numberOfEvents },
+      eventCount: () => store.getters.numberOfEvents,
+      myProfile: state => state.myProfile
     }),
     data: function () {
       this.auth.handleAuthentication()
-      return {}
+      return { }
     },
     methods: {
       handleNewEvent () {
         store.commit('newEvent')
-        store.commit('getMyProfile') // retrieve the logged in user's profile
         store.commit('addAttendee', this.$store.state.myProfile)
       },
       handleDelete (id) {
@@ -96,6 +95,10 @@
       handleEdit (id) {
         store.commit('setEvent', id)
       }
+    },
+    beforeMount: () => {
+      let userId = localStorage.getItem('sub')
+      store.commit('getMyProfile', userId) // retrieve the logged in user's profile
     }
   }
 </script>

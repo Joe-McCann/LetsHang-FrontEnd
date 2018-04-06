@@ -5,6 +5,7 @@ import auth0 from 'auth0-js'
 // import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
+// import store from '@/store'
 
 export default class AuthService {
   authenticated = this.isAuthenticated()
@@ -20,10 +21,10 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'iambillmccann.auth0.com',
     clientID: 'xAcEHZHv6udK6HgA7KZeSc2CLZND660o',
-    redirectUri: 'http://localhost:9080/callback',
+    redirectUri: 'http://lets-hang.test:9080/callback',
     audience: 'https://iambillmccann.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile read:users read:user_idp_tokens'
   })
 
   login () {
@@ -53,6 +54,7 @@ export default class AuthService {
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('sub', authResult.idTokenPayload.sub) // This will be used as the user secret id (temporarily)
+    this.getAuth0Profile()
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 
@@ -61,6 +63,7 @@ export default class AuthService {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
+    localStorage.removeItem('profile')
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
@@ -72,5 +75,21 @@ export default class AuthService {
     // Access Token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
     return new Date().getTime() < expiresAt
+  }
+
+  getAuth0Profile () {
+    // ToDo: check the store to see if the profile is there
+    //       return if it is
+    let accessToken = localStorage.getItem('access_token')
+    if (!accessToken) {
+      console.log('Access Token must exist to fetch profile')
+    }
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (err) {
+        console.log('Auth0 returned an error obtaining user profile')
+        return null
+      }
+      localStorage.setItem('profile', profile)
+    })
   }
 }
