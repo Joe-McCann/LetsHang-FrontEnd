@@ -5,7 +5,7 @@ import auth0 from 'auth0-js'
 // import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
-// import store from '@/store'
+import store from '@/store'
 
 export default class AuthService {
   authenticated = this.isAuthenticated()
@@ -37,8 +37,9 @@ export default class AuthService {
         this.setSession(authResult)
         router.replace('/home')
       } else if (err) {
-        router.replace('/home')
+        alert(err)
         console.log(err)
+        this.logout()
       } else if (!this.isAuthenticated()) {
         this.logout()
       }
@@ -54,7 +55,7 @@ export default class AuthService {
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('sub', authResult.idTokenPayload.sub) // This will be used as the user secret id (temporarily)
-    this.getAuth0Profile()
+    store.commit('getMyProfile', authResult.idTokenPayload.sub) // retrieve the logged in user's profile
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 

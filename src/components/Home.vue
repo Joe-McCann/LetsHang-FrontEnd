@@ -69,6 +69,7 @@
 <script>
   import { mapState } from 'vuex'
   import store from '@/store'
+  // import LetsHangAPI from '@/library/letshangAPI'
 
   export default {
     name: 'home',
@@ -84,21 +85,21 @@
       return { }
     },
     methods: {
-      handleNewEvent () {
+      handleNewEvent: () => {
         store.commit('newEvent')
         store.commit('addAttendee', this.$store.state.myProfile)
       },
-      handleDelete (id) {
+      handleDelete: (id) => {
         // ToDo: display a popup confirmtion
         store.commit('removeEvent', id)
       },
-      handleEdit (id) {
+      handleEdit: (id) => {
         store.commit('setEvent', id)
       }
     },
     beforeMount: () => {
-      let userId = localStorage.getItem('sub')
-      store.commit('getMyProfile', userId) // retrieve the logged in user's profile
+      // let userId = localStorage.getItem('sub')
+      // store.commit('getMyProfile', userId) // retrieve the logged in user's profile
     }
   }
 </script>

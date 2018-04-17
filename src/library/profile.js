@@ -6,9 +6,14 @@
 // ToDo: implement an API call to retrieve the profile from a database
 //
 import People from '@/library/people'
+import LetshangAPI from '@/library/LetshangAPI'
 
 export default function GetProfile (userId) {
-  var me = new People()
+  let me = new People()
+  let api = new LetshangAPI()
+
+  api.getProfileFromDB(userId)
+
   me.setFirstName('Bill')
   me.setLastName('McCann')
   return me

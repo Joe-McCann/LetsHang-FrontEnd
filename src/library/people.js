@@ -10,6 +10,7 @@ export default class People {
     this.address = ''
     this.phone = ''
     this.email = ''
+    this.newMember = false
     this.fullName = this.getFullName.bind(this)
   }
 
@@ -19,5 +20,6 @@ export default class People {
   setAddress (address) { this.address = address }
   setEmail (email) { this.email = email }
   setPhone (phone) { this.phone = phone }
+  setNewMember (newMember) { this.newMember = newMember }
   getFullName () { return this.firstName + ' ' + this.lastName }
 }
