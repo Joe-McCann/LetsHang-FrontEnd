@@ -37,7 +37,7 @@ export default class AuthService {
         this.setSession(authResult)
         router.replace('/home')
       } else if (err) {
-        alert(err)
+        alert('Authentication error ' + err.errorDescription)
         console.log(err)
         this.logout()
       } else if (!this.isAuthenticated()) {

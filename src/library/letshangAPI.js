@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default class LetsHangAPI {
   constructor () {
-    this.baseURL = 'http://Lenovo-laptop:8080X'
+    this.baseURL = 'http://Lenovo-laptop:8080'
     this.token = 'ThisCanBeAnything'
     this.authorizationType = 'Bearer'
     this.firstName = 'Yogi'
@@ -19,8 +19,8 @@ export default class LetsHangAPI {
     }
     axios
       .get(url, axiosConfig)
-      .then((response, firstName) => {
-        firstName = 'Bob'
+      .then((response) => {
+        this.firstName = 'Bob'
         alert('Response status=' + response.status)
         console.log(response.status)
         console.log(response.data)
@@ -41,10 +41,9 @@ export default class LetsHangAPI {
           console.log(error.request)
         } else {
           // Something happened in setting up the request that triggered an Error
-          alert(error.message)
+          alert('Setup error' + error.message)
           console.log('Error', error.message)
         }
-        alert(error.config)
         console.log(error.config)
       })
     alert('First name is ' + this.firstName)

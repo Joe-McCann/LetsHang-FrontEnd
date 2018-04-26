@@ -1,0 +1,39 @@
+// Profile
+// This class simply returns a special People object with the values for the
+// logged in user
+//
+// This implementation is using hardcoded values
+// ToDo: implement an API call to retrieve the profile from a database
+//
+import People from '@/library/people'
+import restify from 'restify'
+
+export default function GetProfile (userId) {
+  let me = new People()
+  me.firstName = 'Yogi'
+
+  let baseURL = 'http://Lenovo-laptop:8080'
+  let token = 'ThisCanBeAnything'
+  let authorizationType = 'Bearer'
+
+  let resource = `${baseURL}/profile/${userId}`
+  let bearerToken = `${authorizationType} ${token}`
+  let options = {
+    path: resource,
+    headers: { 'Authorization': bearerToken },
+    retry: { 'retries': 0 },
+    agent: false
+  };
+
+  let client = restify.createJsonClient({ url: baseURL });
+  client.get(options, function(err, req, res, obj) {
+    assert.ifError(err);
+    alert(JSON.stringify(obj, null, 2));
+  });
+
+  alert('First name is ' + me.firstName)
+
+  // me.setFirstName('Bill')
+  // me.setLastName('McCann')
+  return me
+}
