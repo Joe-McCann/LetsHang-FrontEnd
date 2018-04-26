@@ -7,14 +7,13 @@
 //
 import People from '@/library/people'
 import axios from 'axios'
-import { reporters } from 'mocha';
 
 export default function GetProfile (userId) {
   let me = new People()
-  me.id = userId
+  me.firstName = 'Yogi'
 
-  let baseURL = 'http://Lenovo-laptop:8080' // This should be configurable
-  let token = 'ThisCanBeAnything' // TODO: We need a real token
+  let baseURL = 'http://Lenovo-laptop:8080'
+  let token = 'ThisCanBeAnything'
   let authorizationType = 'Bearer'
 
   let url = `${baseURL}/profile/${userId}`
@@ -27,12 +26,6 @@ export default function GetProfile (userId) {
     .get(url, axiosConfig)
     .then((response) => {
       me.firstName = response.data.firstName
-      me.lastName = response.data.lastName
-      me.address = response.data.address
-      me.phone = response.data.phone
-      me.email = response.data.email
-      me.nickName = response.data.nickName.replace(/s+/g, '')
-      me.newMember = response.data.newMember
     })
     .catch(error => {
       if (error.response) {

@@ -69,12 +69,14 @@
 <script>
   import { mapState } from 'vuex'
   import store from '@/store'
-  
+  // import LetsHangAPI from '@/library/letshangAPI'
+
   export default {
     name: 'home',
     props: ['auth', 'authenticated'],
     computed: mapState({
       myEvents: state => state.myEvents.events,
+      // eventCount: function () { return store.getters.numberOfEvents },
       eventCount: () => store.getters.numberOfEvents,
       myProfile: state => state.myProfile
     }),
