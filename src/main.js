@@ -9,7 +9,8 @@ import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
 import * as VueGoogleMaps from 'vue2-google-maps'
-// import VueResource from 'vue-resource'
+import Logger from './library/logger'
+const logger = new Logger('debug')
 
 Vue.use(Vuetify, {
   theme: {
@@ -33,11 +34,6 @@ Vue.use(VueGoogleMaps, {
 Vue.use(Vuex)
 Vue.config.productionTip = false
 
-// Vue.use(VueResource)
-// Vue.http.options.root = 'http://Lenovo-laptop:8080'
-// Vue.http.headers.common['Authorization'] = 'Bearer ThisCanBeAnything'
-// Vue.http.headers.common['Origin'] = 'http://lets-hang.test'
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -46,3 +42,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+logger.debug('main.js', '', '*** Starting Let\'s Hang App ***')

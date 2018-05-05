@@ -1,4 +1,6 @@
 import Functions from '@/library/global'
+import Logger from '../library/logger'
+const logger = new Logger('debug')
 
 export default class People {
   constructor () {
@@ -12,6 +14,7 @@ export default class People {
     this.email = ''
     this.newMember = false
     this.fullName = this.getFullName.bind(this)
+    logger.debug('people.js', 'constructor', 'Allocated a new People object for id ' + this.id)
   }
 
   setFirstName (firstName) { this.firstName = firstName }

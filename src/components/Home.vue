@@ -10,7 +10,7 @@
                             &#8220;Hanging out with friends should be easy.&#8221;
                             </blockquote>
                             <router-link to="./eventdetailhorizontal">
-                                <div class="headline mt-4" @click="handleNewEvent">Let's Get Started {{ myProfile.firstName }}!</div>
+                                <div class="headline mt-4" @click="handleNewEvent">Let's Get Started {{ myFirstName }}!</div>
                             </router-link>
                     </v-flex>
                 </v-layout>
@@ -63,43 +63,69 @@
             </v-slide-y-transition>
         </v-container>
     </div>
+    <friendDetail v-bind:isopen="openForm" 
+                  v-bind:formTitle="formTitle"
+                  v-on:result="resetForm" 
+                  v-on:savePerson="savePerson">
+    </friendDetail>
     </v-flex></v-layout></v-container>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import store from '@/store'
-  // import LetsHangAPI from '@/library/letshangAPI'
+import FriendDetail from '@/components/FriendDetail'
+import store from '@/store'
+import Logger from '../library/logger'
+const logger = new Logger('debug')
 
-  export default {
-    name: 'home',
-    props: ['auth', 'authenticated'],
-    computed: mapState({
-      myEvents: state => state.myEvents.events,
-      // eventCount: function () { return store.getters.numberOfEvents },
-      eventCount: () => store.getters.numberOfEvents,
-      myProfile: state => state.myProfile
-    }),
-    data: function () {
-      this.auth.handleAuthentication()
-      return { }
-    },
-    methods: {
-      handleNewEvent: () => {
-        store.commit('newEvent')
-        store.commit('addAttendee', this.$store.state.myProfile)
+export default {
+  name: 'home',
+  props: ['auth', 'authenticated'],
+  components: { 'friendDetail': FriendDetail },
+  computed: {
+    myEvents: () => store.getters.myEvents.events,
+    eventCount: () => store.getters.numberOfEvents,
+    openForm: {
+      get: () => {
+        this.profile = store.getters.currentUser // set the profile to the current user
+        store.commit('setThePerson', this.profile) // open the form on the profile
+        return store.getters.isNewMember
       },
-      handleDelete: (id) => {
-        // ToDo: display a popup confirmtion
-        store.commit('removeEvent', id)
-      },
-      handleEdit: (id) => {
-        store.commit('setEvent', id)
-      }
+      set: (value) => value
     },
-    beforeMount: () => {
-      // let userId = localStorage.getItem('sub')
-      // store.commit('getMyProfile', userId) // retrieve the logged in user's profile
+    myFirstName: () => store.getters.myFirstName
+  },
+  data: function () {
+    logger.debug('Home.vue', 'data', 'In the data function of Home.Vue')
+    this.auth.handleAuthentication()
+    return {
+      formTitle: 'Your Let\'s Hang Profile',
+      profile: store.getters.currentUser
+    }
+  },
+  methods: {
+    resetForm: function (payload) { this.openForm = payload.isopen },
+    savePerson: function (payload) {
+      let person = payload.person
+      person.newMember = false
+      store.commit('setCurrentUser', person)
+    },
+    handleNewEvent: () => {
+      logger.debug('Home.vue', 'handleNewEvent', 'Create a new event')
+      this.profile = store.getters.currentUser
+      store.commit('newEvent')
+      logger.debug('Home.vue', 'handleNewEvent', 'Now add the user as an attendee ' + this.profile.id)
+      store.commit('addAttendee', this.profile)
+      logger.debug('Home.vue', 'handleNewEvent', 'handleNewEvent is done')
+    },
+    handleDelete: (id) => {
+      logger.debug('Home.vue', 'handleDelete', 'handleDelete')
+      // ToDo: display a popup confirmtion
+      store.commit('removeEvent', id)
+    },
+    handleEdit: (id) => {
+      logger.debug('Home.vue', 'handleEdit', 'handleEdit')
+      store.commit('setEvent', id)
     }
   }
+}
 </script>

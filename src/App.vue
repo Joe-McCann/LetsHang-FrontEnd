@@ -57,6 +57,8 @@
 import AuthService from './auth/AuthService'
 import { mapState } from 'vuex'
 import store from '@/store'
+import Logger from './library/logger'
+const logger = new Logger('debug')
 
 const auth = new AuthService()
 const { login, logout, authenticated, authNotifier } = auth
@@ -65,38 +67,21 @@ export default {
   name: 'App',
   computed: mapState({
     title: 'appTitle',
-    profile: 'myProfile'
+    profile: 'currentUser'
   }),
   data: function () {
+    logger.debug('App.vue', 'data', 'In the data function of App.Vue')
     authNotifier.on('authChange', authState => { this.authenticated = authState.authenticated })
     return {
       auth,
       authenticated,
       drawer: true,
       items: [
-        {
-          icon: 'event',
-          title: 'Events',
-          isItem: true
-        },
-        {
-          icon: 'people',
-          title: 'Friends',
-          isItem: true
-        },
-        {
-          isItem: false
-        },
-        {
-          icon: 'settings',
-          title: 'Settings',
-          isItem: true
-        },
-        {
-          icon: 'help',
-          title: 'Help',
-          isItem: true
-        }
+        { icon: 'event', title: 'Events', isItem: true },
+        { icon: 'people', title: 'Friends', isItem: true },
+        { isItem: false },
+        { icon: 'settings', title: 'Settings', isItem: true },
+        { icon: 'help', title: 'Help', isItem: true }
       ]
     }
   },

@@ -5,7 +5,10 @@ import auth0 from 'auth0-js'
 // import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
-import store from '@/store'
+// import store from '@/store'
+import GetProfile from '@/library/profile'
+import Logger from '../library/logger'
+const logger = new Logger('debug')
 
 export default class AuthService {
   authenticated = this.isAuthenticated()
@@ -34,19 +37,21 @@ export default class AuthService {
   handleAuthentication () {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        logger.debug('AuthService.vue', 'handleAuthentication', 'Authenticated correctly, call setSession')
         this.setSession(authResult)
         router.replace('/home')
       } else if (err) {
-        alert('Authentication error ' + err.errorDescription)
-        console.log(err)
+        logger.error('AuthService.vue', 'handleAuthentication', err.errorDescription)
         this.logout()
       } else if (!this.isAuthenticated()) {
+        logger.critical('AuthService.vue', 'handleAuthentication', 'Problem authenticating, the app is logging out')
         this.logout()
       }
     })
   }
 
   setSession (authResult) {
+    logger.debug('AuthService.vue', 'setSession', 'In AuthService setSession')
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
@@ -55,7 +60,8 @@ export default class AuthService {
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('sub', authResult.idTokenPayload.sub) // This will be used as the user secret id (temporarily)
-    store.commit('getMyProfile', authResult.idTokenPayload.sub) // retrieve the logged in user's profile
+    logger.debug('AuthService.vue', 'setSession', 'Call GetProfile')
+    GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 
@@ -83,11 +89,11 @@ export default class AuthService {
     //       return if it is
     let accessToken = localStorage.getItem('access_token')
     if (!accessToken) {
-      console.log('Access Token must exist to fetch profile')
+      logger.debug('AuthService.vue', 'getAuth0Profile', 'Access Token must exist to fetch profile')
     }
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (err) {
-        console.log('Auth0 returned an error obtaining user profile')
+        logger.error('AuthService.vue', 'getAuth0Profile', 'Auth0 returned an error obtaining user profile')
         return null
       }
       localStorage.setItem('profile', profile)

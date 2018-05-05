@@ -44,6 +44,8 @@
   import InvitedList from '@/components/InvitedList'
   import GoogleMap from '@/components/GoogleMap'
   import store from '@/store'
+  import Logger from '../library/logger'
+  const logger = new Logger('debug')
 
   export default {
     name: 'eventdetailhorizontal',
@@ -54,6 +56,7 @@
     },
     props: ['auth', 'authenticated'],
     data () {
+      logger.debug('EventDetailHorizontal.vue', 'Data', 'In the data for event detail stepper')
       this.auth.handleAuthentication()
       return { wizardStep: 1 }
     },

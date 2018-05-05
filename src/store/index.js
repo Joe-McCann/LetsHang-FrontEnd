@@ -1,27 +1,43 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import GetProfile from '@/library/profile'
 import GetDefaultEvent from '@/library/defaultEvent'
 import Event from '@/library/event'
 import EventList from '@/library/eventList'
 import People from '@/library/people'
+
+// Add the following import if logging is necessary
+// import Logger from '../library/logger'
+// const logger = new Logger('debug')
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     appTitle: 'Let\'s Hang',
-    myProfile: new People(),
+    currentUser: new People(),
+    thePerson: new People(),
     theEvent: new Event(),
     myEvents: new EventList()
   },
   getters: {
-    numberOfEvents: state => { return state.myEvents.events.length }
+    numberOfEvents: state => { return state.myEvents.events.length },
+    isNewMember: state => {
+      if (state.currentUser.newMember == null) return true
+      return state.currentUser.newMember
+    },
+    myFirstName: state => state.currentUser.firstName,
+    appTitle: state => state.appTitle,
+    currentUser: state => state.currentUser,
+    thePerson: state => state.thePerson,
+    theEvent: state => state.theEvent,
+    myEvents: state => state.myEvents
   },
   mutations: {
     // functions that update the logged in user's profile
-    getMyProfile (state, userId) { state.myProfile = GetProfile(userId) },
-    removeProfile (state) { state.myProfile = new People() },
+    setCurrentUser (state, profile) { state.currentUser = profile },
+    setThePerson (state, profile) { state.thePerson = profile },
+    setNewMemberStatus (state, newMember) { state.currentUser.newMember = newMember },
+    removeProfile (state) { state.currentUser = new People() },
 
     // functions that update the event
     newEvent (state) { state.theEvent = GetDefaultEvent() },

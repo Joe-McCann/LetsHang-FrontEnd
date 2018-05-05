@@ -3,7 +3,7 @@
     <v-dialog v-model="isopen" persistent max-width="500px" :fullscreen="$vuetify.breakpoint.xs">
         <v-card>
         <v-card-title>
-            <span class="headline">Invite a Friend</span>
+            <span class="headline">{{ formTitle }}</span>
         </v-card-title>
         <v-card-text>
             <v-container grid-list-md>
@@ -48,22 +48,25 @@
 <script>
   import People from '@/library/people'
   import store from '@/store'
+  import Logger from '../library/logger'
+  const logger = new Logger('debug')
 
   export default {
     name: 'friendDetail',
-    props: [ 'isopen' ],
+    props: [ 'isopen', 'formTitle' ],
     data: function () {
-      return {
-        person: new People()
-      }
+      logger.debug('FriendDetail.vue', 'data', 'In the FriendDetail data function')
+      return { person: store.getters.thePerson }
     },
     methods: {
       closeThis () {
-        this.$emit('result', { isopen: false })
+        logger.debug('FriendDetail.vue', 'closeThis', 'Closing the FriendDetail form')
         this.person = new People()
+        this.$emit('result', { isopen: false })
       },
       handleOk () {
-        store.commit('addAttendee', this.person)
+        logger.debug('FriendDetail.vue', 'handleOk', 'The user clicked Ok on the FriendDetail form')
+        this.$emit('savePerson', { person: this.person })
         this.closeThis()
       }
     }

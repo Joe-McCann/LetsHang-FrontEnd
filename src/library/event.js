@@ -1,5 +1,7 @@
 import Functions from '@/library/global'
 import People from '@/library/people'
+import Logger from '../library/logger'
+const logger = new Logger('debug')
 
 export default class Event {
   constructor () {
@@ -27,6 +29,7 @@ export default class Event {
   // array, create a new instance to push.
   invitePerson (person) {
     var p = new People()
+    logger.debug('event.js', 'invitePerson', 'The id of the person being added ' + person.id)
     p.firstName = person.firstName
     p.lastName = person.lastName
     p.nickName = person.nickName

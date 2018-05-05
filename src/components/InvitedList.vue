@@ -27,7 +27,11 @@
                     fab>
                   <v-icon>add</v-icon>
                 </v-btn>
-                <friendDetail v-bind:isopen="openForm" v-on:result="resetForm"></friendDetail>
+                <friendDetail v-bind:isopen="openForm" 
+                              v-bind:formTitle="formTitle"
+                              v-on:result="resetForm" 
+                              v-on:savePerson="savePerson">
+                </friendDetail>
             </v-flex>
         </v-layout>                        
     </v-card>
@@ -35,21 +39,33 @@
 
 <script>
   import FriendDetail from '@/components/FriendDetail'
-  import { mapState } from 'vuex'
+  import People from '@/library/people'
   import store from '@/store'
+
+  // Remove the comments below to turn on loggin
+  // import Logger from '../library/logger'
+  // const logger = new Logger('debug')
 
   export default {
     name: 'invitedList',
     components: { 'friendDetail': FriendDetail },
-    computed: mapState({
-      myProfile: state => state.myProfile,
-      invited: state => state.theEvent.invited
-    }),
+    computed: {
+      currentUser: state => store.getters.currentUser,
+      invited: state => store.getters.theEvent.invited
+    },
     data: function () {
-      return { openForm: false }
+      store.commit('setThePerson', new People())
+      return {
+        openForm: false,
+        formTitle: 'Invite a Friend'
+      }
     },
     methods: {
       resetForm: function (payload) { this.openForm = payload.isopen },
+      savePerson: function (payload) {
+        store.commit('addAttendee', payload.person)
+        // store.commit('setThePerson', new People()) // reset the person's information
+      },
       remove: function (person) { store.commit('removeAttendee', person) }
     }
   }
