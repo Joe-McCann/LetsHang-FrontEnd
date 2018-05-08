@@ -55,7 +55,7 @@
     name: 'friendDetail',
     props: [ 'isopen', 'formTitle' ],
     data: function () {
-      logger.debug('FriendDetail.vue', 'data', 'In the FriendDetail data function')
+      logger.debug('FriendDetail.vue', 'data', 'In the FriendDetail data function ' + store.getters.thePerson.id)
       return { person: store.getters.thePerson }
     },
     methods: {
@@ -69,6 +69,7 @@
         this.$emit('savePerson', { person: this.person })
         this.closeThis()
       }
-    }
+    },
+    beforeUpdate: function () { this.person = store.getters.thePerson }
   }
 </script>

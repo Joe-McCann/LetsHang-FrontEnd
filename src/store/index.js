@@ -6,8 +6,8 @@ import EventList from '@/library/eventList'
 import People from '@/library/people'
 
 // Add the following import if logging is necessary
-// import Logger from '../library/logger'
-// const logger = new Logger('debug')
+import Logger from '../library/logger'
+const logger = new Logger('debug')
 
 Vue.use(Vuex)
 
@@ -34,8 +34,14 @@ export default new Vuex.Store({
   },
   mutations: {
     // functions that update the logged in user's profile
-    setCurrentUser (state, profile) { state.currentUser = profile },
-    setThePerson (state, profile) { state.thePerson = profile },
+    setCurrentUser (state, profile) {
+      logger.debug('store:index.js', 'setCurrentUser', 'Setting current user to ' + profile.id)
+      state.currentUser = profile
+    },
+    setThePerson (state, profile) {
+      logger.debug('store:index.js', 'setThePerson', 'Setting user for editting ' + profile.id)
+      state.thePerson = profile
+    },
     setNewMemberStatus (state, newMember) { state.currentUser.newMember = newMember },
     removeProfile (state) { state.currentUser = new People() },
 

@@ -74,6 +74,7 @@
 <script>
 import FriendDetail from '@/components/FriendDetail'
 import store from '@/store'
+import Profile from '@/library/profile'
 import Logger from '../library/logger'
 const logger = new Logger('debug')
 
@@ -107,6 +108,8 @@ export default {
     savePerson: function (payload) {
       let person = payload.person
       person.newMember = false
+      let profileAPI = new Profile()
+      profileAPI.PutProfile(person)
       store.commit('setCurrentUser', person)
     },
     handleNewEvent: () => {

@@ -6,7 +6,7 @@ import auth0 from 'auth0-js'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
 // import store from '@/store'
-import GetProfile from '@/library/profile'
+import Profile from '@/library/profile'
 import Logger from '../library/logger'
 const logger = new Logger('debug')
 
@@ -52,16 +52,14 @@ export default class AuthService {
 
   setSession (authResult) {
     logger.debug('AuthService.vue', 'setSession', 'In AuthService setSession')
+    let profileAPI = new Profile()
+    profileAPI.GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
     // Set the time that the Access Token will expire at
-    let expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    )
+    let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
-    localStorage.setItem('sub', authResult.idTokenPayload.sub) // This will be used as the user secret id (temporarily)
-    logger.debug('AuthService.vue', 'setSession', 'Call GetProfile')
-    GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
+    localStorage.setItem('sub', authResult.idTokenPayload.sub)
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 
