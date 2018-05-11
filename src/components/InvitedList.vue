@@ -39,6 +39,7 @@
 
 <script>
   import FriendDetail from '@/components/FriendDetail'
+  import Profile from '@/library/profile'
   import People from '@/library/people'
   import store from '@/store'
 
@@ -63,8 +64,13 @@
     methods: {
       resetForm: function (payload) { this.openForm = payload.isopen },
       savePerson: function (payload) {
-        store.commit('addAttendee', payload.person)
-        // store.commit('setThePerson', new People()) // reset the person's information
+        let person = payload.person
+        person.newMember = false
+        let profileAPI = new Profile()
+        // TODO. This only supports adding friends to the database; need to support update.
+        profileAPI.PostProfile(person)
+        store.commit('addAttendee', person)
+        store.commit('setThePerson', new People())
       },
       remove: function (person) { store.commit('removeAttendee', person) }
     }

@@ -62,7 +62,7 @@ export default class Profile {
   }
 
   PutProfile (me) {
-  // TODO: This is where the RESTful call is made to update a profile record
+    // TODO: This is where the RESTful call is made to update a profile record
     logger.debug('profile.js', 'PetProfile', 'In GetProfile for ' + me.id)
     let userId = me.id
 
@@ -89,6 +89,37 @@ export default class Profile {
           logger.error('profile.js', 'axios.put.then.catch', 'Error', error.message)
         }
         logger.error('profile.js', 'axios.put.then.catch', error.config)
+      })
+  }
+
+  PostProfile (me) {
+    // TODO: This is where the RESTful call is made to update a profile record
+    logger.debug('profile.js', 'PostProfile', 'In PostProfile for ' + me.id)
+    let userId = me.id
+
+    let url = `${this.baseURL}/profile/${userId}`
+    axios
+      .post(url, me, this.axiosConfig)
+      .then((response) => {
+        logger.debug('profile.js', 'axios.put.then', 'In PostProfile, successful response from backend')
+      })
+      .catch(error => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          logger.error('profile.js', 'axios.post.then.catch', error.response.data)
+          logger.error('profile.js', 'axios.post.then.catch', error.response.status)
+          logger.error('profile.js', 'axios.post.then.catch', error.response.headers)
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          logger.error('profile.js', 'axios.post.then.catch', error.request.stack)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          logger.error('profile.js', 'axios.post.then.catch', 'Error', error.message)
+        }
+        logger.error('profile.js', 'axios.post.then.catch', error.config)
       })
   }
 }

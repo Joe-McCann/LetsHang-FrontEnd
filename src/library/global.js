@@ -4,6 +4,6 @@
 //
 export default class Functions {
   idGenerator () {
-    return Math.floor(Math.random() * 1000000)
+    return 'TEMP|' + Math.floor(Math.random() * 1000000).toString()
   }
 }
