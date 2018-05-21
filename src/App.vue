@@ -37,7 +37,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat
-               v-on:click.stop="openForm = true"
+               v-on:click.stop="editProfile()"
                v-if="profile!=null">
         {{ profile.fullName() }}
         </v-btn>
@@ -51,7 +51,7 @@
         v-bind:authenticated="authenticated">
       </router-view>
     </v-content>
-    <friendDetail v-bind:isopen="openForm" 
+    <friendDetail v-bind:isopen="isOpen" 
                   v-bind:formTitle="formTitle"
                   v-on:result="resetForm" 
                   v-on:savePerson="savePerson">
@@ -86,7 +86,7 @@ export default {
       profile: store.getters.currentUser,
       title: store.getters.appTitle,
       formTitle: 'Your Profile',
-      openForm: false,
+      isOpen: false,
       items: [
         { icon: 'event', title: 'Events', isItem: true },
         { icon: 'people', title: 'Friends', isItem: true },
@@ -99,7 +99,7 @@ export default {
   methods: {
     login,
     logout,
-    resetForm: function (payload) { this.openForm = payload.isopen },
+    resetForm: function (payload) { this.isOpen = payload.isopen },
     savePerson: function (payload) {
       let person = payload.person
       person.newMember = false
@@ -109,11 +109,14 @@ export default {
     signout () {
       store.commit('removeProfile')
       this.logout() // log out from auth0
+    },
+    editProfile () {
+      store.commit('setThePerson', store.getters.currentUser)
+      this.isOpen = true
     }
   },
-  beforeUpdate: function () {
+  beforeUpdate () {
     this.profile = store.getters.currentUser
-    store.commit('setThePerson', this.profile) // open the form on the profile
   }
 }
 </script>

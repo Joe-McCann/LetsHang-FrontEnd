@@ -16,6 +16,7 @@
                         {{ person.firstName }}&nbsp;<span><strong v-if="person.nickName.trim()!=''">&quot;{{ person.nickName }}&quot;&nbsp;</strong></span>{{ person.lastName }}
                     </v-chip>
                 </div>
+                <!-- TODO: Add logic for -->
                 <v-btn
                     color="accent"
                     dark
@@ -23,15 +24,16 @@
                     absolute
                     bottom
                     right
-                    v-on:click.stop="openForm = true"
+                    v-on:click.stop="isOpen = true"
                     fab>
                   <v-icon>add</v-icon>
                 </v-btn>
-                <friendDetail v-bind:isopen="openForm" 
-                              v-bind:formTitle="formTitle"
-                              v-on:result="resetForm" 
-                              v-on:savePerson="savePerson">
-                </friendDetail>
+                <component v-bind:is="componentName"
+                           v-bind:isopen="isOpen" 
+                           v-bind:formTitle="formTitle"
+                           v-on:result="resetForm" 
+                           v-on:savePerson="savePerson">
+                </component>
             </v-flex>
         </v-layout>                        
     </v-card>
@@ -40,12 +42,13 @@
 <script>
   import FriendDetail from '@/components/FriendDetail'
   import Profile from '@/library/profile'
+  import Friends from '@/library/friends'
   import People from '@/library/people'
   import store from '@/store'
 
   // Remove the comments below to turn on loggin
-  // import Logger from '../library/logger'
-  // const logger = new Logger('debug')
+  import Logger from '../library/logger'
+  const logger = new Logger('debug')
 
   export default {
     name: 'invitedList',
@@ -57,20 +60,28 @@
     data: function () {
       store.commit('setThePerson', new People())
       return {
-        openForm: false,
-        formTitle: 'Invite a Friend'
+        isOpen: false,
+        formTitle: 'Invite a Friend',
+        componentName: 'friendDetail',
+        profileAPI: new Profile(),
+        friendsAPI: new Friends()
       }
     },
     methods: {
-      resetForm: function (payload) { this.openForm = payload.isopen },
+      resetForm: function (payload) { this.isOpen = payload.isopen },
+      // TODO. This only supports adding friends to the database; need to support update.
       savePerson: function (payload) {
-        let person = payload.person
-        person.newMember = false
-        let profileAPI = new Profile()
-        // TODO. This only supports adding friends to the database; need to support update.
-        profileAPI.PostProfile(person)
-        store.commit('addAttendee', person)
-        store.commit('setThePerson', new People())
+        let person = payload.person // obain the profile from the form
+        person.newMember = false // set the person's newMember flag to false
+        logger.debug('InvitedList.vue', 'savePerson', `1. The userId of the friend is ${person.id}`)
+        store.commit('addFriend', person) // add the profile to the user's friends
+        store.commit('addAttendee', person) // add the person to the list attending the event
+        store.commit('setThePerson', new People()) // reset the profile used by the form
+        logger.debug('InvitedList.vue', 'savePerson', `2. The userId of the friend is ${person.id}`)
+        this.profileAPI.PostProfile(person) // update the profile on Firebase
+        logger.debug('InvitedList.vue', 'savePerson', `3. The userId of the friend is ${store.getters.myFriends.id}`)
+        this.friendsAPI.PutFriends(store.getters.myFriends) // save the friends to Firebase
+        logger.debug('InvitedList.vue', 'savePerson', `4. The userId of the friend is ${store.getters.myFriends.id}`)
       },
       remove: function (person) { store.commit('removeAttendee', person) }
     }

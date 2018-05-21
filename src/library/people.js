@@ -14,6 +14,7 @@ export default class People {
     this.email = ''
     this.newMember = false
     this.fullName = this.getFullName.bind(this)
+    this.initials = this.getInitials.bind(this)
     logger.debug('people.js', 'constructor', 'Allocated a new People object for id ' + this.id)
   }
 
@@ -25,4 +26,5 @@ export default class People {
   setPhone (phone) { this.phone = phone }
   setNewMember (newMember) { this.newMember = newMember }
   getFullName () { return this.firstName + ' ' + this.lastName }
+  getInitials () { return this.firstName[0] + this.lastName[0] }
 }

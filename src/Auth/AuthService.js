@@ -2,12 +2,11 @@
 // called login which calls the authorize method from auth0.js.
 
 import auth0 from 'auth0-js'
-// import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
-// import store from '@/store'
 import Profile from '@/library/profile'
 import Logger from '../library/logger'
+import Friends from '../library/friends'
 const logger = new Logger('debug')
 
 export default class AuthService {
@@ -54,6 +53,8 @@ export default class AuthService {
     logger.debug('AuthService.vue', 'setSession', 'In AuthService setSession')
     let profileAPI = new Profile()
     profileAPI.GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
+    let friendsAPI = new Friends()
+    friendsAPI.GetFriends(authResult.idTokenPayload.sub)
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
     localStorage.setItem('access_token', authResult.accessToken)
