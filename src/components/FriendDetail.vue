@@ -5,7 +5,7 @@
         <v-card-title>
             <span class="headline">{{ formTitle }}</span>
         </v-card-title>
-        <v-card-text>
+          <v-card-text>
             <v-container grid-list-md>
                 <v-layout wrap>
                     <v-flex xs12 sm6 md4>
@@ -34,7 +34,7 @@
                 </v-layout>
             </v-container>
             <small>*indicates required field</small>
-        </v-card-text>
+          </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn flat v-on:click.native="closeThis()">Cancel</v-btn>

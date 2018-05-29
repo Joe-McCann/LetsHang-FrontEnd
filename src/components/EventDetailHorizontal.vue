@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
         <v-flex xs12 md10 offset-md1>
-            <v-stepper v-model="wizardStep" non-linear>
+            <v-stepper v-model="wizardStep" non-linear :fullscreen="$vuetify.breakpoint.xs">
                 <v-stepper-header>
                     <v-stepper-step step="1" editable :complete="wizardStep > 1">What are you planning?</v-stepper-step>
                     <v-divider></v-divider>

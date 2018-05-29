@@ -22,7 +22,7 @@ export default new Vuex.Store({
     myFriends: new FriendList()
   },
   getters: {
-    numberOfEvents: state => { return state.myEvents.events.length },
+    numberOfEvents: state => state.myEvents.events.length,
     isNewMember: state => {
       if (state.currentUser.newMember == null) return true
       return state.currentUser.newMember
@@ -33,7 +33,8 @@ export default new Vuex.Store({
     thePerson: state => state.thePerson,
     theEvent: state => state.theEvent,
     myEvents: state => state.myEvents,
-    myFriends: state => state.myFriends
+    myFriends: state => state.myFriends,
+    numberOfFriends: state => state.myFriends.friends.length
   },
   mutations: {
     // functions that update the logged in user's profile

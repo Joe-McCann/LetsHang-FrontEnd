@@ -28,8 +28,10 @@ export default class Event {
   // More JS nonsense. To prevent pointing to the same object over and over in the
   // array, create a new instance to push.
   invitePerson (person) {
+    if (this.inInvited(person)) return
     var p = new People()
     logger.debug('event.js', 'invitePerson', 'The id of the person being added ' + person.id)
+    p.id = person.id
     p.firstName = person.firstName
     p.lastName = person.lastName
     p.nickName = person.nickName
@@ -38,8 +40,16 @@ export default class Event {
     p.email = person.email
     this.invited.push(p)
   }
+
   removePerson (person) {
     this.invited.splice(this.invited.indexOf(person), 1)
     this.invited = [...this.invited]
+  }
+
+  inInvited (person) {
+    for (let p in this.invited) {
+      if (this.invited[p].id === person.id) return true
+    }
+    return false
   }
 }

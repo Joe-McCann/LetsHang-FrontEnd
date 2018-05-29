@@ -18,6 +18,7 @@ export default class People {
     logger.debug('people.js', 'constructor', 'Allocated a new People object for id ' + this.id)
   }
 
+  setId (id) { this.id = id }
   setFirstName (firstName) { this.firstName = firstName }
   setLastName (lastName) { this.lastName = lastName }
   setNickName (nickName) { this.nickName = nickName }

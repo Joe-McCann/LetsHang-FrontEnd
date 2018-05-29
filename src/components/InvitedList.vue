@@ -41,6 +41,7 @@
 
 <script>
   import FriendDetail from '@/components/FriendDetail'
+  import FriendList from '@/components/FriendList'
   import Profile from '@/library/profile'
   import Friends from '@/library/friends'
   import People from '@/library/people'
@@ -52,17 +53,21 @@
 
   export default {
     name: 'invitedList',
-    components: { 'friendDetail': FriendDetail },
+    components: {
+      'friendDetail': FriendDetail,
+      'friendList': FriendList
+    },
     computed: {
-      currentUser: state => store.getters.currentUser,
-      invited: state => store.getters.theEvent.invited
+      currentUser: () => store.getters.currentUser,
+      invited: () => store.getters.theEvent.invited,
+      componentName: () => store.getters.numberOfFriends > 0 ? 'friendList' : 'friendDetail'
     },
     data: function () {
       store.commit('setThePerson', new People())
       return {
         isOpen: false,
         formTitle: 'Invite a Friend',
-        componentName: 'friendDetail',
+        // componentName: 'friendDetail',
         profileAPI: new Profile(),
         friendsAPI: new Friends()
       }
