@@ -3,25 +3,28 @@
         <gmap-map
           :center="center"
           :zoom="10"
-          class="google-map"
-        >
+          class="google-map">
             <gmap-marker
-            :key="index"
-            v-for="(pin, index) in markers"
-            :position="pin.position"
-            :icon="pin.icon"
-            :clickable="true"
-            :draggable="true"
-            @click="center=pin.position"
-            ></gmap-marker>
+              :key="index"
+              v-for="(pin, index) in markers"
+              :position="pin.position"
+              :icon="pin.icon"
+              :clickable="true"
+              :draggable="true"
+              @click="center=pin.position">
+            </gmap-marker>
         </gmap-map>
     </v-container>
 </template>
 
 <script>
+  // import store from '@/store'
+
   export default {
     data: () => {
       return {
+        // center: store.getters.mapCenter,
+        // markers: store.getters.mapMarkers
         center: { lat: 40.5000283, lng: -74.3068167 },
         /* eslint-disable */
         markers: [

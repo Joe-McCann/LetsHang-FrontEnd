@@ -4,9 +4,9 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
-import Profile from '@/library/profile'
+import Profile from '@/library/profile2api'
 import Logger from '../library/logger'
-import Friends from '../library/friends'
+import Friends from '../library/friends2api'
 const logger = new Logger('debug')
 
 export default class AuthService {

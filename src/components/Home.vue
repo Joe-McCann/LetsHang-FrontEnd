@@ -74,7 +74,7 @@
 <script>
 import FriendDetail from '@/components/FriendDetail'
 import store from '@/store'
-import Profile from '@/library/profile'
+import Profile from '@/library/profile2api'
 import Logger from '../library/logger'
 const logger = new Logger('debug')
 

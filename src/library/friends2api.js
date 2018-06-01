@@ -1,4 +1,4 @@
-// Friends
+// Friends2api
 // This class simply returns a list of friends for the logged in user.
 // Each friend is a People object
 //
@@ -21,15 +21,15 @@ export default class Friends {
   }
 
   GetFriends (userId) {
-    logger.debug('friends.js', 'GetFriends', `In GetFriends for ${userId}`)
+    logger.debug('friends2api.js', 'GetFriends', `In GetFriends for ${userId}`)
     let myFriends = new FriendList(userId)
-    logger.debug('friends.js', 'GetFriends', `New friends id ${myFriends.id}`)
+    logger.debug('friends2api.js', 'GetFriends', `New friends id ${myFriends.id}`)
 
     let url = `${this.baseURL}/friends/${userId}`
     axios
       .get(url, this.axiosConfig)
       .then((response) => {
-        logger.debug('friends.js', 'axios.get.then', 'In GetProfile, successful response from backend')
+        logger.debug('friends2api.js', 'axios.get.then', 'In GetProfile, successful response from backend')
         myFriends.friends = response.data.friends
         store.commit('setFriendList', myFriends)
       })
@@ -37,49 +37,49 @@ export default class Friends {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          logger.error('friends.js', 'axios.get.then.catch', error.response.data)
-          logger.error('friends.js', 'axios.get.then.catch', error.response.status)
-          logger.error('friends.js', 'axios.get.then.catch', error.response.headers)
+          logger.error('friends2api.js', 'axios.get.then.catch', error.response.data)
+          logger.error('friends2api.js', 'axios.get.then.catch', error.response.status)
+          logger.error('friends2api.js', 'axios.get.then.catch', error.response.headers)
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
-          logger.error('friends.js', 'axios.get.then.catch', error.request)
+          logger.error('friends2api.js', 'axios.get.then.catch', error.request)
         } else {
           // Something happened in setting up the request that triggered an Error
-          logger.error('friends.js', 'axios.get.then.catch', 'Error', error.message)
+          logger.error('friends2api.js', 'axios.get.then.catch', 'Error', error.message)
         }
-        logger.error('friends.js', 'axios.get.then.catch', error.config)
+        logger.error('friends2api.js', 'axios.get.then.catch', error.config)
       })
   }
 
   PutFriends () {
-    logger.debug('friends.js', 'PostFriends', `In PostFriends`)
+    logger.debug('friends2api.js', 'PutFriends', `In PutFriends`)
     let myFriends = store.getters.myFriends
 
     let url = `${this.baseURL}/friends/${myFriends.id}`
     axios
       .put(url, myFriends, this.axiosConfig)
       .then((response) => {
-        logger.debug('friends.js', 'axios.post.then', 'In PostProfile, successful response from backend')
+        logger.debug('friends2api.js', 'axios.Put.then', 'In PutFriends, successful response from backend')
       })
       .catch(error => {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          logger.error('friends.js', 'axios.post.then.catch', error.response.data)
-          logger.error('friends.js', 'axios.post.then.catch', error.response.status)
-          logger.error('friends.js', 'axios.post.then.catch', error.response.headers)
+          logger.error('friends2api.js', 'axios.Put.then.catch', error.response.data)
+          logger.error('friends2api.js', 'axios.Put.then.catch', error.response.status)
+          logger.error('friends2api.js', 'axios.Put.then.catch', error.response.headers)
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
-          logger.error('friends.js', 'axios.post.then.catch', error.request)
+          logger.error('friends2api.js', 'axios.Put.then.catch', error.request)
         } else {
           // Something happened in setting up the request that triggered an Error
-          logger.error('friends.js', 'axios.post.then.catch', 'Error', error.message)
+          logger.error('friends2api.js', 'axios.Put.then.catch', 'Error', error.message)
         }
-        logger.error('friends.js', 'axios.post.then.catch', error.config)
+        logger.error('friends2api.js', 'axios.Put.then.catch', error.config)
       })
   }
 }

@@ -5,10 +5,12 @@
 // the instance. This class assures that each item in the
 // event list is a unique instance entered by the user.
 import Event from '@/library/event'
+import EventAPI from '@/library/event2api'
 
 export default class EventList {
   constructor () {
     this.events = []
+    this.eventAPI = new EventAPI()
   }
 
   addEvent (event) {
@@ -18,7 +20,9 @@ export default class EventList {
     newEvent.time = event.time
     newEvent.invited = event.invited
     this.events.push(newEvent)
+    this.eventAPI.PostEvent(newEvent)
   }
+
   removeEvent (id) {
     // Apologies for this unreadable JavaScript construct
     // This is creating and executing an anonymous function
@@ -34,15 +38,18 @@ export default class EventList {
     this.events.splice(index, 1)
     this.events = [...this.events] // compress the deleted items out of the array
   }
+
   getEvent (id) {
     return this.events.find(function (event) { return event.id === id })
   }
+
   replaceEvent (existingEvent, event) {
     existingEvent.eventDescription = event.eventDescription
     existingEvent.date = event.date
     existingEvent.time = event.time
     existingEvent.invited = event.invited
   }
+
   insertOrReplace (event) {
     var existingEvent = this.getEvent(event.id)
     if (existingEvent === undefined) {

@@ -21,17 +21,17 @@ export default class Profile {
   }
 
   GetProfile (userId) {
-    logger.debug('profile.js', 'GetProfile', 'In GetProfile for ' + userId)
+    logger.debug('profile2api.js', 'GetProfile', 'In GetProfile for ' + userId)
     let me = new People()
-    logger.debug('profile.js', 'GetProfile', 'New persion id ' + me.id)
+    logger.debug('profile2api.js', 'GetProfile', 'New persion id ' + me.id)
     me.id = userId
-    logger.debug('profile.js', 'GetProfile', 'Updated persion id ' + me.id)
+    logger.debug('profile2api.js', 'GetProfile', 'Updated persion id ' + me.id)
 
     let url = `${this.baseURL}/profile/${userId}`
     axios
       .get(url, this.axiosConfig)
       .then((response) => {
-        logger.debug('profile.js', 'axios.get.then', 'In GetProfile, successful response from backend')
+        logger.debug('profile2api.js', 'axios.get.then', 'In GetProfile, successful response from backend')
         me.firstName = response.data.firstName
         me.lastName = response.data.lastName
         me.address = response.data.address
@@ -45,81 +45,81 @@ export default class Profile {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          logger.error('profile.js', 'axios.get.then.catch', error.response.data)
-          logger.error('profile.js', 'axios.get.then.catch', error.response.status)
-          logger.error('profile.js', 'axios.get.then.catch', error.response.headers)
+          logger.error('profile2api.js', 'axios.get.then.catch', error.response.data)
+          logger.error('profile2api.js', 'axios.get.then.catch', error.response.status)
+          logger.error('profile2api.js', 'axios.get.then.catch', error.response.headers)
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
-          logger.error('profile.js', 'axios.get.then.catch', error.request)
+          logger.error('profile2api.js', 'axios.get.then.catch', error.request)
         } else {
           // Something happened in setting up the request that triggered an Error
-          logger.error('profile.js', 'axios.get.then.catch', 'Error', error.message)
+          logger.error('profile2api.js', 'axios.get.then.catch', 'Error', error.message)
         }
-        logger.error('profile.js', 'axios.get.then.catch', error.config)
+        logger.error('profile2api.js', 'axios.get.then.catch', error.config)
       })
   }
 
   PutProfile (me) {
     // TODO: This is where the RESTful call is made to update a profile record
-    logger.debug('profile.js', 'PetProfile', 'In GetProfile for ' + me.id)
+    logger.debug('profile2api.js', 'PetProfile', 'In GetProfile for ' + me.id)
     let userId = me.id
 
     let url = `${this.baseURL}/profile/${userId}`
     axios
       .put(url, me, this.axiosConfig)
       .then((response) => {
-        logger.debug('profile.js', 'axios.put.then', 'In PutProfile, successful response from backend')
+        logger.debug('profile2api.js', 'axios.put.then', 'In PutProfile, successful response from backend')
       })
       .catch(error => {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          logger.error('profile.js', 'axios.put.then.catch', error.response.data)
-          logger.error('profile.js', 'axios.put.then.catch', error.response.status)
-          logger.error('profile.js', 'axios.put.then.catch', error.response.headers)
+          logger.error('profile2api.js', 'axios.put.then.catch', error.response.data)
+          logger.error('profile2api.js', 'axios.put.then.catch', error.response.status)
+          logger.error('profile2api.js', 'axios.put.then.catch', error.response.headers)
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
-          logger.error('profile.js', 'axios.put.then.catch', error.request.stack)
+          logger.error('profile2api.js', 'axios.put.then.catch', error.request.stack)
         } else {
           // Something happened in setting up the request that triggered an Error
-          logger.error('profile.js', 'axios.put.then.catch', 'Error', error.message)
+          logger.error('profile2api.js', 'axios.put.then.catch', 'Error', error.message)
         }
-        logger.error('profile.js', 'axios.put.then.catch', error.config)
+        logger.error('profile2api.js', 'axios.put.then.catch', error.config)
       })
   }
 
   PostProfile (me) {
     // TODO: This is where the RESTful call is made to update a profile record
-    logger.debug('profile.js', 'PostProfile', 'In PostProfile for ' + me.id)
+    logger.debug('profile2api.js', 'PostProfile', 'In PostProfile for ' + me.id)
     let userId = me.id
 
     let url = `${this.baseURL}/profile/${userId}`
     axios
       .post(url, me, this.axiosConfig)
       .then((response) => {
-        logger.debug('profile.js', 'axios.put.then', 'In PostProfile, successful response from backend')
+        logger.debug('profile2api.js', 'axios.put.then', 'In PostProfile, successful response from backend')
       })
       .catch(error => {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          logger.error('profile.js', 'axios.post.then.catch', error.response.data)
-          logger.error('profile.js', 'axios.post.then.catch', error.response.status)
-          logger.error('profile.js', 'axios.post.then.catch', error.response.headers)
+          logger.error('profile2api.js', 'axios.post.then.catch', error.response.data)
+          logger.error('profile2api.js', 'axios.post.then.catch', error.response.status)
+          logger.error('profile2api.js', 'axios.post.then.catch', error.response.headers)
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
-          logger.error('profile.js', 'axios.post.then.catch', error.request.stack)
+          logger.error('profile2api.js', 'axios.post.then.catch', error.request.stack)
         } else {
           // Something happened in setting up the request that triggered an Error
-          logger.error('profile.js', 'axios.post.then.catch', 'Error', error.message)
+          logger.error('profile2api.js', 'axios.post.then.catch', 'Error', error.message)
         }
-        logger.error('profile.js', 'axios.post.then.catch', error.config)
+        logger.error('profile2api.js', 'axios.post.then.catch', error.config)
       })
   }
 }

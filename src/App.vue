@@ -66,7 +66,7 @@
 import AuthService from './auth/AuthService'
 import store from '@/store'
 import FriendDetail from '@/components/FriendDetail'
-import Profile from '@/library/profile'
+import Profile from '@/library/profile2api'
 import Logger from './library/logger'
 const logger = new Logger('debug')
 
