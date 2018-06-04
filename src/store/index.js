@@ -20,7 +20,7 @@ export default new Vuex.Store({
     theEvent: new Event(),
     myEvents: new EventList(),
     myFriends: new FriendList(),
-    mapCenter: { lat: 90.0, lng: 0.0 },
+    mapCenter: { lat: 42.242933, lng: -83.624612 },
     mapMarkers: []
   },
   getters: {

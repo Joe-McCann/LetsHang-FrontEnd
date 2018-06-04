@@ -29,7 +29,7 @@ export default class Maps {
       .then((response) => {
         logger.debug('maps2api.js', 'axios.post.then', 'In PostMap, successful response from backend')
         store.commit('setMapCenter', response.data.center)
-        store.commit('setMapMarkers', response.data.markers)
+        store.commit('setMapMarkers', this.getMarkers(response.data.markers))
       })
       .catch(error => {
         if (error.response) {
@@ -51,6 +51,27 @@ export default class Maps {
       })
   }
 
+  getMarkers (markerData) {
+    logger.debug('maps2api.js', 'getMarkers', `Starting getMarkers`)
+
+    let markers = []
+
+    for (let i in markerData) {
+      /* eslint-disable */
+      let pin = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + markerData[i].color)
+      /* eslint-enable */
+      let marker = {
+        position: markerData[i].position,
+        icon: pin
+      }
+      logger.debug('maps2api.js', 'getMarkers', `Marker ${i} has color ${markerData[i].color}`)
+      markers.push(marker)
+    }
+
+    logger.debug('maps2api.js', 'getMarkers', `Returning markers for ${markers.length} points`)
+    return markers
+  }
+
   getAddresses () {
     logger.debug('maps2api.js', 'getAddresses', `Starting getMapData`)
 
@@ -62,7 +83,7 @@ export default class Maps {
 
     for (let i in event.invited) {
       color = this.pickColor()
-      address = `${comma}"${event.invited[i].address}":{"color":"${color}"}`
+      address = `${comma}"${event.invited[i].id}":{ "address":"${event.invited[i].address}", "color":"${color} "}`
       mapData = mapData + address
       comma = ','
     }

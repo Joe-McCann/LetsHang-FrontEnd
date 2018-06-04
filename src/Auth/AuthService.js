@@ -55,6 +55,7 @@ export default class AuthService {
     profileAPI.GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
     let friendsAPI = new Friends()
     friendsAPI.GetFriends(authResult.idTokenPayload.sub)
+    // TODO: retrieve the list of events
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
     localStorage.setItem('access_token', authResult.accessToken)
