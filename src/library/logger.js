@@ -45,8 +45,8 @@ export default class Logger {
   }
 
   debug (source, method, message) { if (this.logLevel >= 1) this.log('DEBUG', source, method, message) }
-  info (source, method, message) { if (this.logLevel >= 1) this.log('INFO', source, method, message) }
-  warning (source, method, message) { if (this.logLevel >= 1) this.log('WARNING', source, method, message) }
-  error (source, method, message) { if (this.logLevel >= 1) this.log('ERROR', source, method, message) }
-  critical (source, method, message) { if (this.logLevel >= 1) this.log('CRITICAL', source, method, message) }
+  info (source, method, message) { if (this.logLevel >= 2) this.log('INFO', source, method, message) }
+  warning (source, method, message) { if (this.logLevel >= 3) this.log('WARNING', source, method, message) }
+  error (source, method, message) { if (this.logLevel >= 4) this.log('ERROR', source, method, message) }
+  critical (source, method, message) { if (this.logLevel >= 5) this.log('CRITICAL', source, method, message) }
 }

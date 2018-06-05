@@ -19,7 +19,9 @@ export default new Vuex.Store({
     thePerson: new People(),
     theEvent: new Event(),
     myEvents: new EventList(),
-    myFriends: new FriendList()
+    myFriends: new FriendList(),
+    mapCenter: { lat: 42.242933, lng: -83.624612 },
+    mapMarkers: []
   },
   getters: {
     numberOfEvents: state => state.myEvents.events.length,
@@ -34,7 +36,9 @@ export default new Vuex.Store({
     theEvent: state => state.theEvent,
     myEvents: state => state.myEvents,
     myFriends: state => state.myFriends,
-    numberOfFriends: state => state.myFriends.friends.length
+    numberOfFriends: state => state.myFriends.friends.length,
+    mapCenter: state => state.mapCenter,
+    mapMarkers: state => state.mapMarkers
   },
   mutations: {
     // functions that update the logged in user's profile
@@ -42,9 +46,11 @@ export default new Vuex.Store({
     setThePerson (state, profile) { state.thePerson = profile },
     setNewMemberStatus (state, newMember) { state.currentUser.newMember = newMember },
     removeProfile (state) { state.currentUser = new People() },
+
     // functions that update the friends list
     setFriendList (state, friends) { state.myFriends = friends },
     addFriend (state, profile) { state.myFriends.addFriend(profile) },
+
     // functions that update the event
     newEvent (state) { state.theEvent = GetDefaultEvent() },
     setEvent (state, id) { state.theEvent = state.myEvents.getEvent(id) },
@@ -58,6 +64,10 @@ export default new Vuex.Store({
 
     // functions that update the list of events
     addEvent (state) { state.myEvents.insertOrReplace(state.theEvent) },
-    removeEvent (state, id) { state.myEvents.removeEvent(id) }
+    removeEvent (state, id) { state.myEvents.removeEvent(id) },
+
+    // functions that set the map data
+    setMapCenter (state, mapCenter) { state.mapCenter = mapCenter },
+    setMapMarkers (state, mapMarkers) { state.mapMarkers = mapMarkers }
   }
 })

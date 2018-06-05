@@ -51,8 +51,8 @@
 <script>
   import People from '@/library/people'
   import FriendDetail from '@/components/FriendDetail'
-  import Profile from '@/library/profile'
-  import Friends from '@/library/friends'
+  import Profile from '@/library/profile2api'
+  import Friends from '@/library/friends2api'
   import Functions from '@/library/global'
   import store from '@/store'
   import Logger from '../library/logger'

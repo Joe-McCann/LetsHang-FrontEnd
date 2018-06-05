@@ -42,8 +42,9 @@
 <script>
   import FriendDetail from '@/components/FriendDetail'
   import FriendList from '@/components/FriendList'
-  import Profile from '@/library/profile'
-  import Friends from '@/library/friends'
+  import Profile from '@/library/profile2api'
+  import Friends from '@/library/friends2api'
+  import Maps from '@/library/maps2api'
   import People from '@/library/people'
   import store from '@/store'
 
@@ -69,7 +70,8 @@
         formTitle: 'Invite a Friend',
         // componentName: 'friendDetail',
         profileAPI: new Profile(),
-        friendsAPI: new Friends()
+        friendsAPI: new Friends(),
+        mapAPI: new Maps()
       }
     },
     methods: {
@@ -82,6 +84,7 @@
         store.commit('addFriend', person) // add the profile to the user's friends
         store.commit('addAttendee', person) // add the person to the list attending the event
         store.commit('setThePerson', new People()) // reset the profile used by the form
+        this.mapAPI.PostMap() // obtain the map data
         logger.debug('InvitedList.vue', 'savePerson', `2. The userId of the friend is ${person.id}`)
         this.profileAPI.PostProfile(person) // update the profile on Firebase
         logger.debug('InvitedList.vue', 'savePerson', `3. The userId of the friend is ${store.getters.myFriends.id}`)
