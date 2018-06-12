@@ -21,11 +21,13 @@
   import store from '@/store'
 
   export default {
+
     computed: {
       center: () => store.getters.mapCenter,
       markers: () => store.getters.mapMarkers
     },
     data: () => { return { } }
+
   }
 </script>
 
