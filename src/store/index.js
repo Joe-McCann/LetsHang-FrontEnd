@@ -64,6 +64,7 @@ export default new Vuex.Store({
 
     // functions that update the list of events
     addEvent (state) { state.myEvents.insertOrReplace(state.theEvent) },
+    loadEvent (state, event) { state.myEvents.addEvent(event) },
     removeEvent (state, id) { state.myEvents.removeEvent(id) },
 
     // functions that set the map data

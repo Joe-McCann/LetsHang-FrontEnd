@@ -3,6 +3,7 @@
 import axios from 'axios'
 
 import Logger from '../library/logger'
+import store from '@/store'
 const logger = new Logger('debug')
 
 export default class EventAPI {
@@ -42,6 +43,37 @@ export default class EventAPI {
           logger.error('event2api.js', 'axios.post.then.catch', 'Error', error.message)
         }
         logger.error('event2api.js', 'axios.post.then.catch', error.config)
+      })
+  }
+
+  GetEvents (userId) {
+    logger.debug('event2api.js', 'GetEvents', `In GetEvents for ${userId}`)
+
+    let url = `${this.baseURL}/events/${userId}`
+    axios
+      .get(url, this.axiosConfig)
+      .then((response) => {
+        logger.debug('event2api.js', 'axios.get.then', 'In GetProfile, successful response from backend')
+        let events = response.data.events
+        for (let e in events) store.commit('loadEvent', events[e])
+      })
+      .catch(error => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          logger.error('event2api.js', 'axios.get.then.catch', error.response.data)
+          logger.error('event2api.js', 'axios.get.then.catch', error.response.status)
+          logger.error('event2api.js', 'axios.get.then.catch', error.response.headers)
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          logger.error('event2api.js', 'axios.get.then.catch', error.request)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          logger.error('event2api.js', 'axios.get.then.catch', 'Error', error.message)
+        }
+        logger.error('event2api.js', 'axios.get.then.catch', error.config)
       })
   }
 }

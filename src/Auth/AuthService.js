@@ -5,8 +5,9 @@ import auth0 from 'auth0-js'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
 import Profile from '@/library/profile2api'
-import Logger from '../library/logger'
 import Friends from '../library/friends2api'
+import EventAPI from '../library/event2api'
+import Logger from '../library/logger'
 const logger = new Logger('debug')
 
 export default class AuthService {
@@ -54,8 +55,9 @@ export default class AuthService {
     let profileAPI = new Profile()
     profileAPI.GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
     let friendsAPI = new Friends()
-    friendsAPI.GetFriends(authResult.idTokenPayload.sub)
-    // TODO: retrieve the list of events
+    friendsAPI.GetFriends(authResult.idTokenPayload.sub) // retrieve the user's friend list
+    let eventAPI = new EventAPI()
+    eventAPI.GetEvents(authResult.idTokenPayload.sub) // retrieve the user's event list
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
     localStorage.setItem('access_token', authResult.accessToken)

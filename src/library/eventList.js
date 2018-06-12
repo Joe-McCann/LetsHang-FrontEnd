@@ -15,6 +15,7 @@ export default class EventList {
 
   addEvent (event) {
     var newEvent = new Event()
+    newEvent.id = event.id
     newEvent.eventDescription = event.eventDescription
     newEvent.date = event.date
     newEvent.time = event.time
