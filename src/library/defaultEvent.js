@@ -17,7 +17,6 @@ export default function GetDefaultEvent () {
   if (month < 10) { month = '0' + month }
   if (hour < 10) { hour = '0' + hour }
   if (minute < 10) { minute = '0' + minute }
-  alert(`day=${day}, month=${month}, year=${yyyy}`)
 
   it.eventDescription = 'Just hanging out.'
   it.date = yyyy + '-' + month + '-' + day
