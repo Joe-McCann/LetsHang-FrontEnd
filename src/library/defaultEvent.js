@@ -1,15 +1,15 @@
 import Event from '@/library/event'
 
 export default function GetDefaultEvent () {
-  var it = new Event()
+  let it = new Event()
 
-  var today = new Date()
-  var day = today.getDate()
-  var month = today.getMonth()
-  var yyyy = today.getFullYear()
+  let today = new Date()
+  let day = today.getDate()
+  let month = today.getMonth()
+  let yyyy = today.getFullYear()
 
-  var hour = today.getHours()
-  var minute = today.getMinutes()
+  let hour = today.getHours()
+  let minute = today.getMinutes()
 
   // ToDo: find the way to accomplish this formatting
   // natively in JS without using this check

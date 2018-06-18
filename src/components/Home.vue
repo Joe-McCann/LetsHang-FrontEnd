@@ -55,8 +55,8 @@
                         </v-card>
                     </v-flex>
                     <router-link to="./eventdetailhorizontal">
-                        <v-btn color="teal accent-4" relative dark fixed bottom right fab>
-                            <v-icon @click="handleNewEvent">add</v-icon>
+                        <v-btn @click="handleNewEvent()" color="teal accent-4" relative dark fixed bottom right fab>
+                            <v-icon>add</v-icon>
                         </v-btn>
                     </router-link>
                 </v-layout>
