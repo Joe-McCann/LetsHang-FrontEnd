@@ -77,12 +77,17 @@ export default class Maps {
 
     let mapData = '{ "mapData":{ '
     let event = store.getters.theEvent
+    let me = store.getters.currentUser // added for issue #4
     let comma = ''
     let address = ''
     let color = ''
 
     for (let i in event.invited) {
       color = this.pickColor()
+      // the follow line added for issue #4
+      if ((event.invited[i].address == null) || (event.invited[i].address.trim() === '')) {
+        event.invited[i].address = me.address
+      }
       address = `${comma}"${event.invited[i].id}":{ "address":"${event.invited[i].address}", "color":"${color} "}`
       mapData = mapData + address
       comma = ','
