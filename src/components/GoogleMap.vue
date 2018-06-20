@@ -27,7 +27,6 @@
       markers: () => store.getters.mapMarkers
     },
     data: () => { return { } }
-
   }
 </script>
 

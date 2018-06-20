@@ -43,6 +43,7 @@
   import EventDescription from '@/components/EventDescription'
   import InvitedList from '@/components/InvitedList'
   import GoogleMap from '@/components/GoogleMap'
+  import Maps from '@/library/maps2api'
   import store from '@/store'
   import Logger from '../library/logger'
   const logger = new Logger('debug')
@@ -55,6 +56,7 @@
       'googleMap': GoogleMap
     },
     props: ['auth', 'authenticated'],
+    computed: { mapAPI: () => new Maps() },
     data () {
       logger.debug('EventDetailHorizontal.vue', 'Data', 'In the data for event detail stepper')
       this.auth.handleAuthentication()
@@ -62,7 +64,8 @@
     },
     methods: {
       handleSave: function () { store.commit('addEvent') }
-    }
+    },
+    created: function () { this.mapAPI.PostMap() }
   }
 </script>
 
