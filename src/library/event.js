@@ -16,6 +16,11 @@ export default class Event {
   formatMMDDYYY () { return this.date.substr(5, 2) + '/' + this.date.substr(8, 2) + '/' + this.date.substr(0, 4) }
   formatHHMMAM () {
     var hours = parseInt(this.time.substr(0, 2))
+    // Adjust the displayed time because 0:00 is 12am and 12:00 is 12:00pm
+    if (hours === 12) hours = 24
+    if (hours === 0) hours = 12
+
+    // Adjust military time to am and pm
     if (hours <= 12) {
       return hours.toString() + ':' + this.time.substr(3, 2) + ' am'
     }
