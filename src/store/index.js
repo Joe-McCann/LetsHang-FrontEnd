@@ -20,6 +20,7 @@ export default new Vuex.Store({
     theEvent: new Event(),
     myEvents: new EventList(),
     myFriends: new FriendList(),
+    selectedItem: 'None',
     mapCenter: { lat: 42.242933, lng: -83.624612 },
     mapMarkers: []
   },
@@ -37,6 +38,7 @@ export default new Vuex.Store({
     myEvents: state => state.myEvents,
     myFriends: state => state.myFriends,
     numberOfFriends: state => state.myFriends.friends.length,
+    selectedItem: state => state.selectedItem,
     mapCenter: state => state.mapCenter,
     mapMarkers: state => state.mapMarkers
   },
@@ -66,6 +68,9 @@ export default new Vuex.Store({
     addEvent (state) { state.myEvents.insertOrReplace(state.theEvent) },
     loadEvent (state, event) { state.myEvents.addEvent(event) },
     removeEvent (state, id) { state.myEvents.removeEvent(id) },
+
+    // functions that update miscellaneous variable
+    setSelectedItem (state, item) { state.selectedItem = item },
 
     // functions that set the map data
     setMapCenter (state, mapCenter) { state.mapCenter = mapCenter },

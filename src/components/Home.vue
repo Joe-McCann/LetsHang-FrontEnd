@@ -48,7 +48,7 @@
                                         <v-icon>edit</v-icon>
                                     </v-btn>
                                 </router-link>
-                                <v-btn icon @click="handleDelete(event.id)">
+                                <v-btn icon @click.stop="saveId(event.id); openConfirm = true">
                                     <v-icon>delete</v-icon>
                                 </v-btn>
                             </v-card-actions>
@@ -63,6 +63,10 @@
             </v-slide-y-transition>
         </v-container>
     </div>
+    <confirmation v-bind:messageText="messageText" 
+                  v-bind:isopen="openConfirm"
+                  v-on:confirmed="confirmed">
+    </confirmation>
     <friendDetail v-bind:isopen="openForm" 
                   v-bind:formTitle="formTitle"
                   v-on:result="resetForm" 
@@ -73,6 +77,7 @@
 
 <script>
 import FriendDetail from '@/components/FriendDetail'
+import Confirmation from '@/components/Confirmation'
 import store from '@/store'
 import Profile from '@/library/profile2api'
 import Logger from '../library/logger'
@@ -81,7 +86,10 @@ const logger = new Logger('debug')
 export default {
   name: 'home',
   props: ['auth', 'authenticated'],
-  components: { 'friendDetail': FriendDetail },
+  components: {
+    'friendDetail': FriendDetail,
+    'confirmation': Confirmation
+  },
   computed: {
     myEvents: () => store.getters.myEvents.events,
     eventCount: () => store.getters.numberOfEvents,
@@ -99,7 +107,9 @@ export default {
     logger.debug('Home.vue', 'data', 'In the data function of Home.Vue')
     this.auth.handleAuthentication()
     return {
+      openConfirm: false,
       formTitle: 'Your Let\'s Hang Profile',
+      messageText: 'Please confirm that you wish to decline this event. If you are the only attendee then the event will be cancelled.',
       profile: store.getters.currentUser
     }
   },
@@ -112,6 +122,13 @@ export default {
       profileAPI.PutProfile(person)
       store.commit('setCurrentUser', person)
     },
+    confirmed: function (payload) {
+      this.openConfirm = payload.isopen
+      let response = payload.result
+      if (response === 'Yes') {
+        store.commit('removeEvent', store.getters.selectedItem)
+      }
+    },
     handleNewEvent: () => {
       logger.debug('Home.vue', 'handleNewEvent', 'Create a new event')
       this.profile = store.getters.currentUser
@@ -120,11 +137,7 @@ export default {
       store.commit('addAttendee', this.profile)
       logger.debug('Home.vue', 'handleNewEvent', 'handleNewEvent is done')
     },
-    handleDelete: (id) => {
-      logger.debug('Home.vue', 'handleDelete', 'handleDelete')
-      // ToDo: display a popup confirmtion
-      store.commit('removeEvent', id)
-    },
+    saveId: (id) => { store.commit('setSelectedItem', id) },
     handleEdit: (id) => {
       logger.debug('Home.vue', 'handleEdit', 'handleEdit')
       store.commit('setEvent', id)

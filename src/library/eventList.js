@@ -36,6 +36,7 @@ export default class EventList {
       return -1
     })(id)
     if (index < 0) return // Something is wrong if the event is not found
+    // TODO: Call the API to remove me from the event
     this.events.splice(index, 1)
     this.events = [...this.events] // compress the deleted items out of the array
   }
