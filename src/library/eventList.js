@@ -6,6 +6,7 @@
 // event list is a unique instance entered by the user.
 import Event from '@/library/event'
 import EventAPI from '@/library/event2api'
+import store from '@/store'
 
 export default class EventList {
   constructor () {
@@ -36,7 +37,11 @@ export default class EventList {
       return -1
     })(id)
     if (index < 0) return // Something is wrong if the event is not found
+
     // TODO: Call the API to remove me from the event
+    let userId = store.getters.currentUser.id
+    this.eventAPI.DeclineEvent(id, userId)
+
     this.events.splice(index, 1)
     this.events = [...this.events] // compress the deleted items out of the array
   }
