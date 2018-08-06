@@ -10,7 +10,8 @@ const logger = new Logger('debug')
 
 export default class Maps {
   constructor () {
-    this.baseURL = 'http://Localhost:8000'
+    // this.baseURL = 'http://Localhost:8000'
+    this.baseURL = 'https://api-dot-letshang-v000.appspot.com'
     this.token = 'ThisCanBeAnything'
     this.authorizationType = 'Bearer'
     this.bearerToken = `${this.authorizationType} ${this.token}`

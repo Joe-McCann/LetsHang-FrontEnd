@@ -9,7 +9,8 @@ const logger = new Logger('debug')
 export default class EventAPI {
   constructor () {
     logger.debug('event2api.js', 'constructor', 'Creating EventAPI class')
-    this.baseURL = 'http://Localhost:8000'
+    // this.baseURL = 'http://Localhost:8000'
+    this.baseURL = 'https://api-dot-letshang-v000.appspot.com'
     this.token = 'ThisCanBeAnything'
     this.authorizationType = 'Bearer'
     this.bearerToken = `${this.authorizationType} ${this.token}`
