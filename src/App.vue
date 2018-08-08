@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import AuthService from './auth/AuthService'
+import AuthService from './Auth/AuthService'
 import store from '@/store'
 import FriendDetail from '@/components/FriendDetail'
 import Profile from '@/library/profile2api'
