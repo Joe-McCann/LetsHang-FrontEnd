@@ -17,9 +17,11 @@
     "EventEmitter": "^1.0.0",
     "auth0-js": "^9.2.3",
     "axios": "^0.18.0",
+    "chalk": "^2.1.0",
     "googleapis": "^27.0.0",
     "net": "^1.0.2",
     "npm": "^6.3.0",
+    "shelljs": "^0.7.8",
     "tls": "0.0.1",
     "typescript": "^2.7.2",
     "update": "^0.7.4",
@@ -27,7 +29,8 @@
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.8.11",
     "vuetify": "^1.0.0",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",
@@ -40,7 +43,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
-    "chalk": "^2.1.0",
     "chromedriver": "^2.33.1",
     "connect-history-api-fallback": "^1.4.0",
     "copy-webpack-plugin": "^4.1.1",
@@ -83,7 +85,6 @@
     "rimraf": "^2.6.2",
     "selenium-server": "^3.6.0",
     "semver": "^5.4.1",
-    "shelljs": "^0.7.8",
     "sinon": "^4.0.1",
     "sinon-chai": "^2.14.0",
     "sw-precache-webpack-plugin": "^0.11.4",
@@ -95,11 +96,10 @@
     "webpack": "^3.7.1",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.19.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-hot-middleware": "^2.19.1"
   },
   "engines": {
-    "node": ">= 8.0.0",
+    "node": "8.*",
     "npm": ">= 3.0.0"
   },
   "browserslist": [
