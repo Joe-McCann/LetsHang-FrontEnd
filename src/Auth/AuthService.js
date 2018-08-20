@@ -26,7 +26,7 @@ export default class AuthService {
     clientID: 'xAcEHZHv6udK6HgA7KZeSc2CLZND660o',
     // redirectUri: 'http://lets-hang.test:9080/callback',
     // redirectUri: 'https://8080-dot-3667217-dot-devshell.appspot.com/callback',
-    redirectUri: 'https://letshang-ux-v000.appspot.com/callback',
+    redirectUri: 'https://letshang-app-v000.appspot.com/callback',
     audience: 'https://iambillmccann.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile read:users read:user_idp_tokens'
