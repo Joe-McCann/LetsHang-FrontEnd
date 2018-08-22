@@ -7,6 +7,7 @@ import router from './../router'
 import Profile from '@/library/profile2api'
 import Friends from '../library/friends2api'
 import EventAPI from '../library/event2api'
+import Functions from '@/library/global'
 import Logger from '../library/logger'
 const logger = new Logger('debug')
 
@@ -19,14 +20,16 @@ export default class AuthService {
     this.setSession = this.setSession.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
+    this.configRedirect = ( (new Functions()).environment() == 'development' ) 
+      ? 'http://lets-hang.test:8080/callback'
+      : 'https://letshang-app-v000.appspot.com/callback'
   }
 
   auth0 = new auth0.WebAuth({
     domain: 'iambillmccann.auth0.com',
     clientID: 'xAcEHZHv6udK6HgA7KZeSc2CLZND660o',
-    // redirectUri: 'http://lets-hang.test:9080/callback',
     // redirectUri: 'https://8080-dot-3667217-dot-devshell.appspot.com/callback',
-    redirectUri: 'https://letshang-app-v000.appspot.com/callback',
+    redirectUri: this.configRedirect,
     audience: 'https://iambillmccann.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile read:users read:user_idp_tokens'

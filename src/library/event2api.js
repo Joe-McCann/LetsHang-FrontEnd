@@ -1,7 +1,7 @@
 // event2api
 // This file contains the class that manages API calls for events.
 import axios from 'axios'
-
+import Functions from '@/library/global'
 import Logger from '../library/logger'
 import store from '@/store'
 const logger = new Logger('debug')
@@ -9,8 +9,9 @@ const logger = new Logger('debug')
 export default class EventAPI {
   constructor () {
     logger.debug('event2api.js', 'constructor', 'Creating EventAPI class')
-    // this.baseURL = 'http://Localhost:8000'
-    this.baseURL = 'https://api-dot-letshang-v000.appspot.com'
+    this.baseURL = ( (new Functions()).environment() == 'development' )
+      ? 'http://lets-hang.test:8000'
+      : 'https://api-dot-letshang-v000.appspot.com'
     this.token = 'ThisCanBeAnything'
     this.authorizationType = 'Bearer'
     this.bearerToken = `${this.authorizationType} ${this.token}`
