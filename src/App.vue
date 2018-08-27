@@ -10,20 +10,19 @@
       class="grey lighten-5"
     >
       <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          v-bind:key="i"
-          active-class="caption"
-        >
-          <v-list-tile-action v-if="item.isItem">
-            <v-icon color="secondary" v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content v-if="item.isItem">
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-          <v-divider v-if="!item.isItem"></v-divider>
-        </v-list-tile>
+        <template value="true"
+                  v-for="(item, i) in items"
+                  active-class="caption">
+          <v-list-tile v-bind:key="i" @click="item.method" v-if="item.isItem">
+            <v-list-tile-action>
+              <v-icon color="secondary" v-html="item.icon"></v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content v-if="item.isItem">
+              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider v-else-if="item.divider" v-bind:key="i"></v-divider>
+        </template>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -68,6 +67,7 @@ import store from '@/store'
 import FriendDetail from '@/components/FriendDetail'
 import Profile from '@/library/profile2api'
 import Logger from './library/logger'
+import router from './router'
 const logger = new Logger('debug')
 
 const auth = new AuthService()
@@ -88,11 +88,11 @@ export default {
       formTitle: 'Your Profile',
       isOpen: false,
       items: [
-        { icon: 'event', title: 'Events', isItem: true },
-        { icon: 'people', title: 'Friends', isItem: true },
-        { isItem: false },
-        { icon: 'settings', title: 'Settings', isItem: true },
-        { icon: 'help', title: 'Help', isItem: true }
+        { icon: 'event', title: 'Events', isItem: true, method: () => this.showEvents() },
+        { icon: 'people', title: 'Friends', isItem: true, method: () => this.showFriends() },
+        { isItem: false, divider: true },
+        { icon: 'settings', title: 'Settings', isItem: true, method: () => this.showSettings() },
+        { icon: 'help', title: 'Help', isItem: true, method: () => this.showHelp() }
       ]
     }
   },
@@ -105,6 +105,18 @@ export default {
       person.newMember = false
       let profileAPI = new Profile()
       profileAPI.PutProfile(person)
+    },
+    showEvents() {
+      router.replace({ path: '/home' })
+    },
+    showFriends() {
+      alert('You have selected the Friends link')
+    },
+    showSettings() {
+      alert('You have selected the Setting link')
+    },
+    showHelp() {
+      alert('You have selected the Help link')
     },
     signout () {
       store.commit('removeProfile')

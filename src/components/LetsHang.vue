@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    name: 'helloworld',
+    name: 'letshang',
     props: ['auth', 'authenticated'],
     data: function () {
       this.auth.handleAuthentication()
