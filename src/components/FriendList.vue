@@ -30,14 +30,15 @@
             <template v-for="(item, index) in items">
               <v-list-tile :key="item.id" avatar @click="chooseItem(item)">
                 <v-list-tile-avatar>
-                  <v-avatar :color="randomColor()" size="40"><span class="white--text headline">{{initial(item)}}</span></v-avatar>
+                  <v-avatar :color="functions.randomColor()" size="40"><span class="white--text headline">{{functions.initial(item)}}</span></v-avatar>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title v-html="fullName(item)"></v-list-tile-title>
+                  <v-list-tile-title v-html="functions.fullName(item)"></v-list-tile-title>
                   <v-list-tile-sub-title v-html="item.nickName"></v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>          </template>
+              <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>          
+            </template>
           </v-list>
         </v-card-text>
         <v-card-actions>
@@ -100,23 +101,6 @@
         this.person = item
         this.$emit('savePerson', { person: this.person })
         this.closeThis()
-      },
-      fullName (item) { return this.functions.getFullName(item) },
-      initials (item) { return this.functions.getInitials(item) },
-      initial (item) { return item.firstName[0].toUpperCase() },
-      randomColor () {
-        let i = Math.floor(Math.random() * 6 + 1)
-        let color = 'black'
-        switch (i) {
-          case 1: color = 'red'; break
-          case 2: color = 'orange'; break
-          case 3: color = 'yellow'; break
-          case 4: color = 'green'; break
-          case 5: color = 'blue'; break
-          case 6: color = 'purple'; break
-          default: color = 'gray'
-        }
-        return color
       }
     }
   }

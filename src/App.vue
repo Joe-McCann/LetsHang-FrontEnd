@@ -110,7 +110,7 @@ export default {
       router.replace({ path: '/home' })
     },
     showFriends() {
-      alert('You have selected the Friends link')
+      router.replace({ path: '/friendpage' })
     },
     showSettings() {
       alert('You have selected the Setting link')

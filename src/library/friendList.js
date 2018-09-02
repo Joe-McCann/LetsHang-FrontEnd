@@ -28,4 +28,11 @@ export default class FriendList {
     if (this.friends.indexOf(person) >= 0) return true
     return false
   }
+
+  findFriendById (id) {
+    for (friend in this.friends) {
+      if (friend.id == id) return friend
+    }
+    return null
+  }
 }

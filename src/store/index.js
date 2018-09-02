@@ -7,8 +7,8 @@ import People from '@/library/people'
 import FriendList from '@/library/friendList'
 
 // Add the following import if logging is necessary
-// import Logger from '../library/logger'
-// const logger = new Logger('debug')
+import Logger from '../library/logger'
+const logger = new Logger('debug')
 
 Vue.use(Vuex)
 
@@ -45,7 +45,10 @@ export default new Vuex.Store({
   mutations: {
     // functions that update the logged in user's profile
     setCurrentUser (state, profile) { state.currentUser = profile },
-    setThePerson (state, profile) { state.thePerson = profile },
+    setThePerson (state, profile) {
+      logger.debug('Store/index.js', 'setThePerson', `The id is ${profile.id}`)
+      state.thePerson = profile
+    },
     setNewMemberStatus (state, newMember) { state.currentUser.newMember = newMember },
     removeProfile (state) { state.currentUser = new People() },
 
