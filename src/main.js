@@ -26,7 +26,7 @@ Vue.use(Vuetify, {
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDE_obiduTrYqwMjhxrf25Wm09hFWqF_GE',
+    key: 'AIzaSyBCOPpz9nItjNrXMrTbA71B0pCX2o5P1E8',
     libraries: 'places,drawing,visualization'
   }
 })
