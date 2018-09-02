@@ -12,5 +12,6 @@
 # limitations under the License.
 #
 # [START runtime]
+instance_class: F4_1G
 runtime: nodejs8
 # [END runtime]
