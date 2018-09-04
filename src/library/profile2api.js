@@ -17,6 +17,7 @@ export default class Profile {
     this.baseURL = ( (new Functions()).environment() == 'development' )
       ? 'http://lets-hang.test:8000'
       : 'https://api-dot-letshang-v000.appspot.com'
+    logger.debug('event2api.js', 'constructor', `The baseURL is ${this.baseURL}`)
     this.token = 'ThisCanBeAnything'
     this.authorizationType = 'Bearer'
     this.bearerToken = `${this.authorizationType} ${this.token}`
