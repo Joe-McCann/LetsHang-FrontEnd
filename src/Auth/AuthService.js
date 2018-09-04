@@ -20,6 +20,7 @@ export default class AuthService {
     this.setSession = this.setSession.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
+    logger.debug('AuthService.vue', 'constructor', 'The environment is ' + (new Functions()).environment())
     this.configRedirect = ( (new Functions()).environment() == 'development' ) 
       ? 'http://lets-hang.test:8080/callback'
       : 'https://letshang-app-v000.appspot.com/callback'
