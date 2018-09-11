@@ -29,8 +29,8 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'iambillmccann.auth0.com',
     clientID: 'xAcEHZHv6udK6HgA7KZeSc2CLZND660o',
-    // redirectUri: 'https://8080-dot-3667217-dot-devshell.appspot.com/callback',
-    redirectUri: this.configRedirect,
+    redirectUri: 'https://letshang-app-v000.appspot.com/callback',
+    // redirectUri: this.configRedirect,
     audience: 'https://iambillmccann.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile read:users read:user_idp_tokens'
