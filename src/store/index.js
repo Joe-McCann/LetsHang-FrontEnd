@@ -8,7 +8,7 @@ import FriendList from '@/library/friendList'
 
 // Add the following import if logging is necessary
 import Logger from '../library/logger'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 Vue.use(Vuex)
 

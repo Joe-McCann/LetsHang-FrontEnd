@@ -50,7 +50,7 @@
 
   // Remove the comments below to turn on loggin
   import Logger from '../library/logger'
-  const logger = new Logger('debug')
+  const logger = new Logger('error')
 
   export default {
     name: 'invitedList',

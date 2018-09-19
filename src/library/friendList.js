@@ -2,7 +2,7 @@ import People from '@/library/people'
 
 // Add the following import if logging is necessary
 import Logger from '../library/logger'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 export default class FriendList {
   constructor (userId) {

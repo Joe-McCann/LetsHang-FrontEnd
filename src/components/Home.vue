@@ -81,7 +81,7 @@ import Confirmation from '@/components/Confirmation'
 import store from '@/store'
 import Profile from '@/library/profile2api'
 import Logger from '../library/logger'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 export default {
   name: 'home',

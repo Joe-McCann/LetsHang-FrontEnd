@@ -1,7 +1,7 @@
 import Functions from '@/library/global'
 import People from '@/library/people'
 import Logger from '../library/logger'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 export default class Event {
   constructor () {

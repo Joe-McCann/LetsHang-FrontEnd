@@ -78,7 +78,7 @@
   import Profile from '@/library/profile2api'
   import Friends from '@/library/friends2api'
   import Logger from '../library/logger'
-  const logger = new Logger('debug')
+  const logger = new Logger('error')
 
   export default {
     name: 'friendPage',

@@ -4,7 +4,7 @@ import axios from 'axios'
 import Functions from '@/library/global'
 import Logger from '../library/logger'
 import store from '@/store'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 export default class EventAPI {
   constructor () {

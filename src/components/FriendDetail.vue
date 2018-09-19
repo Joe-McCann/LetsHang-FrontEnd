@@ -49,7 +49,7 @@
   import People from '@/library/people'
   import store from '@/store'
   import Logger from '../library/logger'
-  const logger = new Logger('debug')
+  const logger = new Logger('error')
 
   export default {
     name: 'friendDetail',

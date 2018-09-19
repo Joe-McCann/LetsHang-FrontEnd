@@ -10,7 +10,7 @@ import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import Logger from './library/logger'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 Vue.use(Vuetify, {
   theme: {

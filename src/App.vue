@@ -68,7 +68,7 @@ import FriendDetail from '@/components/FriendDetail'
 import Profile from '@/library/profile2api'
 import Logger from './library/logger'
 import router from './router'
-const logger = new Logger('debug')
+const logger = new Logger('error')
 
 const auth = new AuthService()
 const { login, logout, authenticated, authNotifier } = auth
