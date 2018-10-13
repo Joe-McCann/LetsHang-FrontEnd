@@ -1,4 +1,5 @@
 "use strict";
+console.log('service-worker.js inside the service worker')
 var precacheConfig = [
     ["index.html", "fc92d6f25d013163751ecbf361b16bb7"],
     ["service-worker.js", "ecc007eaba17dc9168ecd9438b30fced"],
