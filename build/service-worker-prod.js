@@ -1,3 +1,4 @@
+
 (function() {
   'use strict';
 
@@ -14,9 +15,12 @@
     );
 
   window.addEventListener('load', function() {
-      this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
-      if ('serviceWorker' in navigator &&
-          (window.location.protocol === 'https:' || isLocalhost)) {
+    this.console.log('service-worker-prod.js window.addEventListener running the load function')
+    if ('serviceWorker' in navigator) this.console.log('service-worker-prod.js window.addEventListener serviceWorker is in navigator')
+    if (this.window.location.protocol === 'https:') this.console.log('service-worker-prod.js window.addEventListener The protocol is https')
+    if ('serviceWorker' in navigator &&
+        (window.location.protocol === 'https:' || isLocalhost)) {
+          this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
         navigator.serviceWorker.register('../service-worker.js')
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
