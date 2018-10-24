@@ -15,7 +15,7 @@
       )
     );
 
-  window.addEventListener('load', () => {
+  window.addEventListener('load', function() {
     
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
