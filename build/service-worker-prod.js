@@ -1,6 +1,6 @@
 
 (function() {
-  
+
   'use strict';
 
   // Check to make sure service workers are supported in the current browser,
@@ -24,7 +24,10 @@
     
     // The service worker registration
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
+
+      // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
+
       navigator.serviceWorker.register('../service-worker.js')
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
@@ -52,9 +55,9 @@
             }
           };
         }).catch(function(e) {
-          console.log(`*** Error during service worker registration ***`)
-          console.log(`*** Error Name is ${e.name} ***`)
-          console.log(`*** Error Message is ${e.message} ***`)
+          this.console.log(`*** Error during service worker registration ***`)
+          this.console.log(`*** Error Name is ${e.name} ***`)
+          this.console.log(`*** Error Message is ${e.message} ***`)
         });
     }
   });
