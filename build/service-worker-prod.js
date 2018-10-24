@@ -55,7 +55,7 @@
             }
           };
         }).catch(function(e) {
-          console.error(`*** Error during service worker registration ***`)
+          console.error(`*** Error during service worker registration using full URL ***`)
           console.error(`*** Error Name is ${e.name} ***`)
           console.error(`*** Error Message is ${e.message} ***`)
         });
