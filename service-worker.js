@@ -1,2 +1,1 @@
-"use strict";
-this.console.log('service-worker.js inside the service worker')
+console.log('Hello from service-worker.js')

@@ -15,7 +15,7 @@
       )
     );
 
-  window.addEventListener('load', function() {
+  window.addEventListener('load', () => {
     
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
@@ -55,9 +55,9 @@
             }
           };
         }).catch(function(e) {
-          this.console.log(`*** Error during service worker registration ***`)
-          this.console.log(`*** Error Name is ${e.name} ***`)
-          this.console.log(`*** Error Message is ${e.message} ***`)
+          console.error(`*** Error during service worker registration ***`)
+          console.error(`*** Error Name is ${e.name} ***`)
+          console.error(`*** Error Message is ${e.message} ***`)
         });
     }
   });
