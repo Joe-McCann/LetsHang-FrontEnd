@@ -28,7 +28,7 @@
       // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
-      navigator.serviceWorker.register('https://letshang-app-v000.appspot.com/build/service-worker.js')
+      navigator.serviceWorker.register('https://letshang-app-v000.appspot.com/service-worker.js')
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
@@ -55,7 +55,7 @@
             }
           };
         }).catch(function(e) {
-          console.error(`*** Error during service worker registration using full URL ***`)
+          console.error(`*** Error during service worker registration using root folder ***`)
           console.error(`*** Error Name is ${e.name} ***`)
           console.error(`*** Error Message is ${e.message} ***`)
         });
