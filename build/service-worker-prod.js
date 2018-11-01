@@ -35,7 +35,7 @@
     
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
-    this.console.log(`*** ${absolute('https://letshang-app-v000.appspot.com', '../service-worker.js')} ***`)
+    this.console.log(`*** ${absolute(document.location.href, '../service-worker.js')} ***`)
     
     // The service worker registration
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
