@@ -23,10 +23,11 @@
       return (link.protocol+'//'+link.host+link.pathname+link.search+link.hash)
     }
     
+    const serviceWorkerURL = '../build/service-worker.js'
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
     this.console.log(`*** ${document.location.href} ***`)
-    this.console.log(`*** ${absolute('../service-worker.js')} ***`)
+    this.console.log(`*** ${absolute(serviceWorkerURL)} ***`)
     
     // The service worker registration
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
@@ -34,7 +35,7 @@
       // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
-      navigator.serviceWorker.register('../service-worker.js')
+      navigator.serviceWorker.register(serviceWorkerURL)
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
