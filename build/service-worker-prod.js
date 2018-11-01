@@ -18,25 +18,15 @@
   window.addEventListener('load', function() {
 
     function absolute(base, relative) {
-      let stack = base.split("/")
-      let parts = relative.split("/")
-      stack.pop() // remove current file name (or empty string)
-                   // (omit if "base" is the current folder without trailing slash)
-      for (var i=0; i<parts.length; i++) {
-          if (parts[i] == ".")
-              continue
-          if (parts[i] == "..")
-              stack.pop()
-          else
-              stack.push(parts[i])
-      }
-      return stack.join("/")
+      let link = document.createElement("a")
+      link.href = href
+      return (link.protocol+'//'+link.host+link.pathname+link.search+link.hash)
     }
     
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
     this.console.log(`*** ${document.location.href} ***`)
-    this.console.log(`*** ${absolute(document.location.href, '../service-worker.js')} ***`)
+    this.console.log(`*** ${absolute('../service-worker.js')} ***`)
     
     // The service worker registration
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
