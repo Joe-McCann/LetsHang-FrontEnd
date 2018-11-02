@@ -23,7 +23,7 @@
       return (link.protocol+'//'+link.host+link.pathname+link.search+link.hash)
     }
     
-    const serviceWorkerURL = '../build/service-worker.js'
+    const serviceWorkerURL = '/service-worker.js'
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
     this.console.log(`*** ${document.location.href} ***`)
