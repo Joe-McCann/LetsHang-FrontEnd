@@ -35,7 +35,7 @@
       // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
-      navigator.serviceWorker.register(serviceWorkerURL)
+      navigator.serviceWorker.register('service-worker.js', {scope: '../'})
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
@@ -62,7 +62,7 @@
             }
           };
         }).catch(function(e) {
-          console.error(`*** Error during service worker registration using root folder ***`)
+          console.error(`*** Error during service worker registration with scope as ../ ***`)
           console.error(`*** Error Name is ${e.name} ***`)
           console.error(`*** Error Message is ${e.message} ***`)
         });
