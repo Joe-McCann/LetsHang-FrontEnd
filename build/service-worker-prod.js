@@ -27,6 +27,7 @@
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
     this.console.log(`*** ${document.location.href} ***`)
+    this.console.log(`*** ${window.location.pathname} ***`)
     this.console.log(`*** ${absolute(serviceWorkerURL)} ***`)
     
     // The service worker registration
