@@ -24,11 +24,13 @@
     }
     
     const serviceWorkerURL = '/service-worker.js'
+    const scope = './'
+
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
-    this.console.log(`*** ${document.location.href} ***`)
-    this.console.log(`*** ${window.location.pathname} ***`)
-    this.console.log(`*** ${absolute(serviceWorkerURL)} ***`)
+    this.console.log(`*** Document URL:   ${document.location.href} ***`)
+    this.console.log(`*** Current path:   ${window.location.pathname} ***`)
+    this.console.log(`*** Service worker: ${absolute(serviceWorkerURL)} ***`)
     
     // The service worker registration
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
@@ -36,7 +38,7 @@
       // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
-      navigator.serviceWorker.register('service-worker.js', {scope: '../'})
+      navigator.serviceWorker.register('service-worker.js', {scope: scope})
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
@@ -63,7 +65,7 @@
             }
           };
         }).catch(function(e) {
-          console.error(`*** Error during service worker registration with scope as ../ ***`)
+          console.error(`*** Error during service worker registration with scope as ${scope} ***`)
           console.error(`*** Error Name is ${e.name} ***`)
           console.error(`*** Error Message is ${e.message} ***`)
         });
