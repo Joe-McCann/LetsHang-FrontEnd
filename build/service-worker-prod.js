@@ -23,7 +23,8 @@
       return (link.protocol+'//'+link.host+link.pathname+link.search+link.hash)
     }
     
-    const serviceWorkerURL = '/service-worker.js'
+    // const serviceWorkerURL = '/service-worker.js'
+    const serviceWorkerURL = 'service-worker.js'
     const scope = './'
 
     // Trouble shooting logs
