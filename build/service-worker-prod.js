@@ -39,7 +39,7 @@
       // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
-      navigator.serviceWorker.register('service-worker.js', {scope: scope})
+      navigator.serviceWorker.register(serviceWorkerURL, {scope: scope})
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
