@@ -24,8 +24,8 @@
     }
     
     // const serviceWorkerURL = '/service-worker.js'
-    const serviceWorkerURL = 'defaultEvent.js'
-    const scope = './src/library/'
+    const serviceWorkerURL = 'src/library/defaultEvent.js'
+    const scope = './'
 
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
