@@ -24,8 +24,8 @@
     }
     
     // const serviceWorkerURL = '/service-worker.js'
-    const serviceWorkerURL = 'app.yaml'
-    const scope = './'
+    const serviceWorkerURL = 'defaultEvent.js'
+    const scope = './src/library/'
 
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
