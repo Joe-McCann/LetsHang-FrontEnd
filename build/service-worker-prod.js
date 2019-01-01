@@ -24,7 +24,7 @@
     }
     
     // const serviceWorkerURL = '/service-worker.js'
-    const serviceWorkerURL = 'src/library/defaultEvent.js'
+    const serviceWorkerURL = 'src/library/service-worker.js'
     const scope = './'
 
     // Trouble shooting logs
