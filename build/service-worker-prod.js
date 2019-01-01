@@ -24,7 +24,7 @@
     }
     
     // const serviceWorkerURL = '/service-worker.js'
-    const serviceWorkerURL = 'service-worker.js'
+    const serviceWorkerURL = 'app.yaml'
     const scope = './'
 
     // Trouble shooting logs
