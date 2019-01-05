@@ -23,9 +23,8 @@
       return (link.protocol+'//'+link.host+link.pathname+link.search+link.hash)
     }
     
-    // const serviceWorkerURL = '/service-worker.js'
-    const serviceWorkerURL = 'src/library/service-worker.js'
-    const scope = './'
+    const serviceWorkerURL = 'service-worker.js'
+    const scope = '/'
 
     // Trouble shooting logs
     this.console.log('service-worker-prod.js window.addEventListener running the load function')
@@ -39,7 +38,7 @@
       // Another touble shooting log
       this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
-      navigator.serviceWorker.register(serviceWorkerURL, {scope: scope})
+      navigator.serviceWorker.register(serviceWorkerURL)
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           this.console.log('Service worker registration was successful.')
