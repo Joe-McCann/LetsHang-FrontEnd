@@ -105,7 +105,8 @@ self.addEventListener("install", function (e) {
         throw Error("The cached response that was expected is missing.")
       })
     }).catch(function (t) {
-      return console.warn('Couldn\'t serve response for "%s" from cache: %O', e.request.url, t), fetch(e.request)
+      // console.warn('Couldn\'t serve response for "%s" from cache: %O', e.request.url, t),
+      return fetch(e.request)
     }))
   }
 });
