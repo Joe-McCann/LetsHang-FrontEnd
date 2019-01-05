@@ -26,17 +26,8 @@
     const serviceWorkerURL = '/service-worker.js'
     const scope = '/'
 
-    // Trouble shooting logs
-    this.console.log('service-worker-prod.js window.addEventListener running the load function')
-    this.console.log(`*** Document URL:   ${document.location.href} ***`)
-    this.console.log(`*** Current path:   ${window.location.pathname} ***`)
-    this.console.log(`*** Service worker: ${absolute(serviceWorkerURL)} ***`)
-    
     // The service worker registration
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
-
-      // Another touble shooting log
-      this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
 
       navigator.serviceWorker.register(serviceWorkerURL)
         .then(function(registration) {
