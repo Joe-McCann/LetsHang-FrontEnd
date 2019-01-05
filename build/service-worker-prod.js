@@ -31,6 +31,7 @@
 
       navigator.serviceWorker.register(serviceWorkerURL)
         .then(function(registration) {
+          console.log('Registration successful')
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
             // updatefound is also fired the very first time the SW is installed,
