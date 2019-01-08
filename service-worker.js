@@ -53,3 +53,34 @@ var precacheConfig = [
       a = createCacheKey(r, hashParamName, n, !1);
     return [r.toString(), a]
   }));
+
+  function setOfCachedUrls(e) {
+    return e.keys().then(function (e) {
+      return e.map(function (e) {
+        return e.url
+      })
+    }).then(function (e) {
+      return new Set(e)
+    })
+  }
+  self.addEventListener("install", function (e) {
+    e.waitUntil(caches.open(cacheName).then(function (e) {
+      return setOfCachedUrls(e).then(function (t) {
+        return Promise.all(Array.from(urlsToCacheKeys.values()).map(function (n) {
+          if (!t.has(n)) {
+            var r = new Request(n, {
+              credentials: "same-origin"
+            });
+            return fetch(r).then(function (t) {
+              if (!t.ok) throw new Error("Request for " + n + " returned a response with status " + t.status);
+              return cleanResponse(t).then(function (t) {
+                return e.put(n, t)
+              })
+            })
+          }
+        }))
+      })
+    }).then(function () {
+      return self.skipWaiting()
+    }))
+  })
