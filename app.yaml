@@ -15,3 +15,9 @@
 instance_class: F4_1G
 runtime: nodejs8
 # [END runtime]
+
+handlers:
+- url: /service-worker\.js
+  static_files: service-worker.js
+  upload: service-worker\.js
+  expiration: 0m

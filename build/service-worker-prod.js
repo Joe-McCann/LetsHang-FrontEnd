@@ -1,4 +1,6 @@
+
 (function() {
+
   'use strict';
 
   // Check to make sure service workers are supported in the current browser,
@@ -14,11 +16,22 @@
     );
 
   window.addEventListener('load', function() {
-      this.console.log('service-worker-prod.js window.addEventListener register serverWorker')
-      if ('serviceWorker' in navigator &&
-          (window.location.protocol === 'https:' || isLocalhost)) {
-        navigator.serviceWorker.register('service-worker.js')
+
+    function absolute(href) {
+      let link = document.createElement("a")
+      link.href = href
+      return (link.protocol+'//'+link.host+link.pathname+link.search+link.hash)
+    }
+    
+    const serviceWorkerURL = '/service-worker.js'
+    const scope = '/'
+
+    // The service worker registration
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
+
+      navigator.serviceWorker.register(serviceWorkerURL)
         .then(function(registration) {
+          console.log('Registration successful')
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
             // updatefound is also fired the very first time the SW is installed,
@@ -26,31 +39,28 @@
             // So check here to see if the page is already controlled,
             // i.e. whether there's an existing service worker.
             if (navigator.serviceWorker.controller) {
-              // The updatefound event implies that registration.installing is set
+             // The updatefound event implies that registration.installing is set
               var installingWorker = registration.installing;
 
               installingWorker.onstatechange = function() {
                 switch (installingWorker.state) {
-                  case 'installed':
-                    // At this point, the old content will have been purged and the
-                    // fresh content will have been added to the cache.
-                    // It's the perfect time to display a "New content is
-                    // available; please refresh." message in the page's interface.
-                    break;
-
-                  case 'redundant':
-                    throw new Error('The installing ' +
-                                    'service worker became redundant.');
-
-                  default:
-                    // Ignore
+                  // At this point, the old content will have been purged and the
+                  // fresh content will have been added to the cache.
+                  // It's the perfect time to display a "New content is
+                  // available; please refresh." message in the page's interface.
+                  case 'installed': break;
+                  case 'redundant': throw new Error('The installing service worker became redundant.');
+                  default: break;
                 }
               };
+
             }
           };
         }).catch(function(e) {
-          console.error('Error during service worker registration:', e);
+          console.error(`*** Error during service worker registration with scope as ${scope} ***`)
+          console.error(`*** Error Name is ${e.name} ***`)
+          console.error(`*** Error Message is ${e.message} ***`)
         });
-      }
+    }
   });
-})();
+ })();
