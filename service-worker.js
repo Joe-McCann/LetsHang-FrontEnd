@@ -54,34 +54,59 @@ var precacheConfig = [
     return [r.toString(), a]
   }));
 
-  function setOfCachedUrls(e) {
-    return e.keys().then(function (e) {
-      return e.map(function (e) {
-        return e.url
-      })
-    }).then(function (e) {
-      return new Set(e)
+function setOfCachedUrls(e) {
+  return e.keys().then(function (e) {
+    return e.map(function (e) {
+      return e.url
     })
-  }
-  
-  self.addEventListener("install", function (e) {
-    e.waitUntil(caches.open(cacheName).then(function (e) {
-      return setOfCachedUrls(e).then(function (t) {
-        return Promise.all(Array.from(urlsToCacheKeys.values()).map(function (n) {
-          if (!t.has(n)) {
-            var r = new Request(n, {
-              credentials: "same-origin"
-            });
-            return fetch(r).then(function (t) {
-              if (!t.ok) throw new Error("Request for " + n + " returned a response with status " + t.status);
-              return cleanResponse(t).then(function (t) {
-                return e.put(n, t)
-              })
-            })
-          }
-        }))
-      })
-    }).then(function () {
-      return self.skipWaiting()
-    }))
+  }).then(function (e) {
+    return new Set(e)
   })
+}
+self.addEventListener("install", function (e) {
+  e.waitUntil(caches.open(cacheName).then(function (e) {
+    return setOfCachedUrls(e).then(function (t) {
+      return Promise.all(Array.from(urlsToCacheKeys.values()).map(function (n) {
+        if (!t.has(n)) {
+          var r = new Request(n, {
+            credentials: "same-origin"
+          });
+          return fetch(r).then(function (t) {
+            if (!t.ok) throw new Error("Request for " + n + " returned a response with status " + t.status);
+            return cleanResponse(t).then(function (t) {
+              return e.put(n, t)
+            })
+          })
+        }
+      }))
+    })
+  }).then(function () {
+    return self.skipWaiting()
+  }))
+}), self.addEventListener("activate", function (e) {
+  var t = new Set(urlsToCacheKeys.values());
+  e.waitUntil(caches.open(cacheName).then(function (e) {
+    return e.keys().then(function (n) {
+      return Promise.all(n.map(function (n) {
+        if (!t.has(n.url)) return e.delete(n)
+      }))
+    })
+  }).then(function () {
+    return self.clients.claim()
+  }))
+}), self.addEventListener("fetch", function (e) {
+  if ("GET" === e.request.method) {
+    var t, n = stripIgnoredUrlParameters(e.request.url, ignoreUrlParametersMatching),
+      r = "index.html";
+    (t = urlsToCacheKeys.has(n)) || (n = addDirectoryIndex(n, r), t = urlsToCacheKeys.has(n));
+    0, t && e.respondWith(caches.open(cacheName).then(function (e) {
+      return e.match(urlsToCacheKeys.get(n)).then(function (e) {
+        if (e) return e;
+        throw Error("The cached response that was expected is missing.")
+      })
+    }).catch(function (t) {
+      // console.warn('Couldn\'t serve response for "%s" from cache: %O', e.request.url, t),
+      return fetch(e.request)
+    }))
+  }
+});
