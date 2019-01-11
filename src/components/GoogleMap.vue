@@ -1,19 +1,27 @@
 <template>
     <v-container fluid>
-        <gmap-map
+        <GmapMap
           :center="center"
           :zoom="10"
           class="google-map">
-            <gmap-marker
+            <GmapMarker
               :key="index"
               v-for="(pin, index) in markers"
               :position="pin.position"
               :icon="pin.icon"
               :clickable="true"
-              :draggable="true"
+              :draggable="false"
               @click="center=pin.position">
-            </gmap-marker>
-        </gmap-map>
+            </GmapMarker>
+            <GmapCircle
+              
+              :key="index"
+              :center="center"
+              :radius="4000"
+              :visible="true"
+              :options="{fillColor:'red',fillOpacity:0.3}">
+            </GmapCircle>
+        </GmapMap>
     </v-container>
 </template>
 
@@ -28,6 +36,7 @@
     },
     data: () => { return { } }
   }
+
 </script>
 
 <style scoped>
