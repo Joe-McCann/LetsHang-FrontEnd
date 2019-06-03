@@ -82,11 +82,13 @@
 
   export default {
     name: 'friendPage',
+    props: ['auth', 'authenticated'],
     components: { 'friendDetail': FriendDetail },
     computed: {
       items: () => store.getters.myFriends.friends
     },
     data () {
+      this.auth.handleAuthentication()
       store.commit('setThePerson', new People())
       return {
         openForm: false,
