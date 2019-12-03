@@ -1,0 +1,21 @@
+#
+# This builds a parent image for the Let's Hang frontend using the offical ubuntu base image.
+#
+# Author: B. McCann
+# Date:   1 Nov 2019
+#
+FROM ubuntu
+
+# Install the system software.
+
+RUN apt-get update
+RUN apt-get install -y nodejs
+RUN apt-get install -y npm
+RUN npm install -g http-server
+
+# Setup application packages.
+# NOTE: This image has to be rebuilt whenever npm packages change.
+
+WORKDIR /LetsHang-FrontEnd
+COPY package*.json ./
+RUN npm install
