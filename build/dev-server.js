@@ -7,14 +7,18 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+// if (!process.env.ROOT_API) {
+//  process.env.ROOT_API = JSON.parse(config.dev.env.ROOT_API)
+// }
+
 const opn = require('opn')
 const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = process.env.NODE_ENV === 'testing' || 'production'
-  ? require('./webpack.prod.conf')
-  : require('./webpack.dev.conf')
+const webpackConfig = process.env.NODE_ENV === 'testing' || 'production' ?
+  require('./webpack.prod.conf') :
+  require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -38,7 +42,9 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({
+      action: 'reload'
+    })
     cb()
   })
 })
@@ -51,7 +57,9 @@ app.use(hotMiddleware)
 Object.keys(proxyTable).forEach(function (context) {
   let options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {
+      target: options
+    }
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })
@@ -67,6 +75,7 @@ const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.asset
 app.use(staticPath, express.static('./static'))
 
 const uri = 'http://lets-hang.test:' + port
+// const uri = process.env.ROOT_API + ':' + port
 
 let _resolve
 const readyPromise = new Promise(resolve => {
