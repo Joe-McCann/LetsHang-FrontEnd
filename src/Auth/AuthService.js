@@ -15,31 +15,31 @@ export default class AuthService {
   authenticated = this.isAuthenticated()
   authNotifier = new EventEmitter()
 
-  constructor() {
+  constructor () {
     this.login = this.login.bind(this)
     this.setSession = this.setSession.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
-  }
+    }
 
   auth0 = new auth0.WebAuth({
     domain: 'iambillmccann.auth0.com',
     clientID: 'xAcEHZHv6udK6HgA7KZeSc2CLZND660o',
     // redirectUri: 'https://letshang-app-v000.appspot.com/callback',
     // redirectUri: this.configRedirect,
-    // redirectUri: ((new Functions()).environment() == 'development') ?
-    redirectUri: (process.env.NODE_ENV == 'development') ?
-      'http://lets-hang.test:8080/callback' : 'https://letshang-app-v000.appspot.com/callback',
+    redirectUri: ( (new Functions()).environment() == 'development' ) 
+    ? 'http://lets-hang.test:8080/callback'
+    : 'https://letshang-app-v000.appspot.com/callback',
     audience: 'https://iambillmccann.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile read:users read:user_idp_tokens'
   })
 
-  login() {
+  login () {
     this.auth0.authorize()
   }
 
-  handleAuthentication() {
+  handleAuthentication () {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         logger.debug('AuthService.vue', 'handleAuthentication', 'Authenticated correctly, call setSession')
@@ -55,7 +55,7 @@ export default class AuthService {
     })
   }
 
-  setSession(authResult) {
+  setSession (authResult) {
     logger.debug('AuthService.vue', 'setSession', 'In AuthService setSession')
     let profileAPI = new Profile()
     profileAPI.GetProfile(authResult.idTokenPayload.sub) // retrieve the logged in user's profile
@@ -69,12 +69,10 @@ export default class AuthService {
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('sub', authResult.idTokenPayload.sub)
-    this.authNotifier.emit('authChange', {
-      authenticated: true
-    })
+    this.authNotifier.emit('authChange', { authenticated: true })
   }
 
-  logout() {
+  logout () {
     // Clear Access Token and ID Token from local storage
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
@@ -86,14 +84,14 @@ export default class AuthService {
     router.replace('/')
   }
 
-  isAuthenticated() {
+  isAuthenticated () {
     // Check whether the current time is past the
     // Access Token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
     return new Date().getTime() < expiresAt
   }
 
-  getAuth0Profile() {
+  getAuth0Profile () {
     // ToDo: check the store to see if the profile is there
     //       return if it is
     let accessToken = localStorage.getItem('access_token')
