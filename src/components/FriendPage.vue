@@ -121,9 +121,7 @@
         logger.debug('FriendPage.vue', 'chooseItem', `The picked the friend from the list ${item.id}`)
         store.commit('setThePerson', item)
         this.openForm = true
-
       }
-
     }
   }
 </script>

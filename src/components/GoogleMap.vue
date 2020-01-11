@@ -36,7 +36,6 @@
     },
     data: () => { return { } }
   }
-
 </script>
 
 <style scoped>

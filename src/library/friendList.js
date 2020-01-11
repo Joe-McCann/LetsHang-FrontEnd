@@ -30,8 +30,9 @@ export default class FriendList {
   }
 
   findFriendById (id) {
+    var friend = null
     for (friend in this.friends) {
-      if (friend.id == id) return friend
+      if (friend.id === id) return friend
     }
     return null
   }

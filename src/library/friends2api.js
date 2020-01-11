@@ -14,14 +14,16 @@ const logger = new Logger('error')
 
 export default class Friends {
   constructor () {
-    this.baseURL =  ( (new Functions()).environment() == 'development' )
-      ? 'http://lets-hang.test:8000'
-      : 'https://api-dot-letshang-v000.appspot.com'
+    this.baseURL = (new Functions()).getAPIURL()
     logger.debug('event2api.js', 'constructor', `The baseURL is ${this.baseURL}`)
     this.token = 'ThisCanBeAnything'
     this.authorizationType = 'Bearer'
     this.bearerToken = `${this.authorizationType} ${this.token}`
-    this.axiosConfig = { headers: { 'Authorization': this.bearerToken } }
+    this.axiosConfig = {
+      headers: {
+        'Authorization': this.bearerToken
+      }
+    }
   }
 
   GetFriends (userId) {
